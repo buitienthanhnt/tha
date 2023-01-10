@@ -3,8 +3,6 @@
 namespace Tha\Devob\Model\Api\Customer;
 
 use Exception;
-use Magento\Customer\Model\ResourceModel\CustomerRepository;
-use Tha\Devob\Helper\Api\CustomerHelper;
 
 class CustomerModel
 {
@@ -13,8 +11,8 @@ class CustomerModel
     protected $accountManagementInterface;
 
     public function __construct(
-        CustomerRepository $customerRepository,
-        CustomerHelper $customerHelper,
+        \Magento\Customer\Model\ResourceModel\CustomerRepository $customerRepository,
+        \Tha\Devob\Helper\Api\CustomerHelper $customerHelper,
         \Magento\Customer\Api\AccountManagementInterface $accountManagementInterface
     )
     {
@@ -46,6 +44,11 @@ class CustomerModel
         $address = $customer->getAddresses();
         return $address;
         return $this->customerHelper->convert_customer_address($address);
+    }
+
+    public function get_register_form()
+    {
+        return $this->customerHelper->get_register_form();
     }
 }
 

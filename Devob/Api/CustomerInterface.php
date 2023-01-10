@@ -1,7 +1,6 @@
 <?php
 
 namespace Tha\Devob\Api;
-
 interface CustomerInterface{
 
 /**
@@ -20,6 +19,11 @@ public function login();
  * @return mixed
  */
 public function customer_address($customer_id);
+
+/**
+ * @return \Tha\Devob\Api\Data\Customer\RegisterFormFieldInterface[]
+ */
+public function get_register_form();
 
 }
 ?>

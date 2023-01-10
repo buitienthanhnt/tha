@@ -43,6 +43,11 @@ class Customer implements CustomerInterface
     {
         return $this->customerModel->get_customer_address($customer_id);
     }
+
+    public function get_register_form()
+    {
+        return $this->customerModel->get_register_form();
+    }
 }
 
 ?>

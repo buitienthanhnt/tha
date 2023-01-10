@@ -110,6 +110,14 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+
+    <route method="GET" url="/V1/get_register_form">
+        <service class="Tha\Devob\Api\CustomerInterface" method="get_register_form"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
     <!--======================customer api======================-->
 
     <!--======================sid_token api======================-->
