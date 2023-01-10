@@ -18,6 +18,9 @@ class Guest implements GuestInterface
         $this->sessionManager = $sessionManager;
     }
 
+    /**
+     * get sid for new guest.
+     */
     function getSidValue()
     {
         $value = $this->BaseAttributesFactory->create();
