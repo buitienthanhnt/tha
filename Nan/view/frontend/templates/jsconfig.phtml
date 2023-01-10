@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * Copyright © 2019 JMango360. All rights reserved.
+ */
+?>
+<script type="text/javascript">
+    (function(require) {
+        var config = {
+            map: {
+                '*': {
+                    'Magento_Checkout/template/payment':'Tha_Nan/template/payment',
+                    'Magento_Checkout/template/shipping':'Tha_Nan/template/shipping',
+                    'Magento_Checkout/template/summary/totals':'Tha_Nan/template/summary/totals',
+                    'Magento_Checkout/template/billing-address/details':'Tha_Nan/template/billing-address/details',
+                    'Magento_Checkout/template/payment/before-place-order':'Tha_Nan/template/payment/before-place-order',
+                    'Magento_Checkout/template/shipping-address/shipping-method-item':'Tha_Nan/template/shipping-address/shipping-method-item',
+
+                    'Magento_Checkout/js/view/shipping':'Tha_Nan/js/view/shipping',
+                    'Magento_Checkout/js/view/payment/default':'Tha_Nan/js/view/payment/default',
+                    'Magento_Checkout/js/view/summary/shipping':'Tha_Nan/js/view/summary/shipping',
+                    'Magento_Checkout/js/view/shipping-information':'Tha_Nan/js/view/shipping-information',
+                    'Magento_Checkout/js/view/summary/abstract-total':'Tha_Nan/js/view/summary/abstract-total'
+                }
+            },
+            config: {
+                mixins: {
+                    // 'Magento_Checkout/js/model/shipping-save-processor': {
+                    //     'Tha_Nan/js/model/shipping-save-processor': true
+                    // }
+                }
+            }
+        };
+
+        require.config(config);
+    })(require);
+</script>
+
+<!-- D:\xampp\htdocs\magento1\vendor\magento\module-checkout\view\frontend\web\js\model\shipping-save-processor\default.js -->
+<!-- D:\xampp\htdocs\magento1\vendor\magento\module-checkout\view\frontend\web\js\model\shipping-save-processor.js -->
+<!-- D:\xampp\htdocs\magento1\vendor\magento\module-checkout\view\frontend\web\js\action\set-shipping-information.js -->
+<!-- D:\xampp\htdocs\magento1\vendor\magento\module-sales-rule\view\frontend\web\js\model\shipping-save-processor-mixin.js -->
+<!-- D:\xampp\htdocs\magento1\vendor\magento\module-checkout\view\frontend\web\js\view\payment.js -->
+
+<!-- D:\xampp\htdocs\magento1\vendor\magento\module-checkout\Block\Checkout\LayoutProcessor.php -->
+<!-- D:\xampp\htdocs\magento1\vendor\magento\module-checkout\Model\ShippingInformationManagement.php -->
+<!-- D:\xampp\htdocs\magento1\vendor\magento\module-checkout\view\frontend\web\js\view\shipping.js -->
+<!-- D:\xampp\htdocs\magento1\vendor\magento\module-checkout\view\frontend\web\js\view\summary\abstract-total.js -->
+<!-- D:\xampp\htdocs\magento1\vendor\magento\module-checkout\view\frontend\web\js\view\payment\default.js -->
+<!-- vendor\magento\module-checkout\view\frontend\web\js\view\summary\shipping.js -->
+<!-- vendor\magento\module-checkout\view\frontend\web\template\billing-address\details.html -->
+<!-- D:\xampp\htdocs\magento1x\vendor\magento\module-checkout\view\frontend\web\template\shipping-address\shipping-method-item.html -->

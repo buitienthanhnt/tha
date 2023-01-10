@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="devob" translate="label" sortOrder="11">
+            <label>devob dir replace</label>
+        </tab>
+        <section id="setting" translate="label" sortOrder="131" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>devob-setting</class>
+            <label>replace domain api</label>
+            <tab>devob</tab>
+            <resource>Tha_Devob::domainapi</resource>
+            <group id="devob_domain" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>domain_ip replace Configuration</label>
+                <field id="dir" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>dir current</label>
+                </field>
+
+                <field id="ip_address" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>ip address repalce</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <setting>
+            <devob_domain>
+                <dir>magento241</dir>
+                <ip_address>192.168.100.209</ip_address>
+            </devob_domain>
+        </setting>
+    </default>
+</config>

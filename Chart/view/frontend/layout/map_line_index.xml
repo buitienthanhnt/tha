@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+
+        <!-- <css src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" src_type="url"/>
+        <link src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" src_type="url"/>
+        <link src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" src_type="url"/> -->
+
+        <!-- <css src="css/line.css" rel="stylesheet" type="text/css"/> -->
+        <!-- <link src="https://code.highcharts.com/highcharts.src.js" src_type="url"/> -->
+
+        <script src="Tha_Chart::js/highcharts.js"/>
+
+    </head>
+    <referenceBlock name="content">
+        <block name="tha_line_index" class="Tha\Chart\Block\Line" template="Tha_Chart::line.phtml" />
+    </referenceBlock>
+</page>

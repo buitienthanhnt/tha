@@ -1,0 +1,127 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <!-- ==================category api======================= -->
+    <!-- <route method="GET" url="/V1/category_data">
+		<service class="Tha\Devob\Api\CategoryInterface" method="getCategoryValue"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+	<route method="GET" url="V1/category_tree">
+		<service class="Tha\Devob\Api\CategoryInterface" method="getCategoryTree"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route> -->
+				<!-- =================================== -->
+	<route method="GET" url="V1/category_List">
+		<service class="Tha\Devob\Api\CategoryInterface" method="getCategoryList"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+    <!-- ==================category api======================= -->
+
+    <!-- ===================product api=================== -->
+	<route method="GET" url="/V1/productList/:category_id/">
+		<service class="Tha\Devob\Api\ProductInterface" method="getProductList"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+    <route method="GET" url="/V1/productRelated/:product_id/">
+		<service class="Tha\Devob\Api\ProductInterface" method="getProductRelated"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+    <route method="GET" url="/V1/productUpsell/:product_id/">
+		<service class="Tha\Devob\Api\ProductInterface" method="productUpsell"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+	<route method="GET" url="/V1/productDetail/:product_id/">
+		<service class="Tha\Devob\Api\ProductInterface" method="getProductDetail"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+				<!-- ================================= -->
+    <!-- <route method="GET" url="/V1/thacall/post">
+            <service class="Tha\Devob\Api\ProductInterface" method="getList"/>
+            <resources>
+                <resource ref="anonymous"/>
+            </resources>
+        </route>
+
+        <route method="GET" url="/V1/devob/detail">
+            <service class="Tha\Devob\Api\ProductInterface" method="getDetail"/>
+            <resources>
+                <resource ref="anonymous"/>
+            </resources>
+        </route>
+
+        <route method="GET" url="/V1/category_detail/:cate_id">
+            <service class="Tha\Devob\Api\CategoryInterface" method="getCategoryData"/>
+            <resources>
+                <resource ref="anonymous"/>
+            </resources>
+        </route>
+
+        <route method="GET" url="/V1/product_data/:id/:value">
+            <service class="Tha\Devob\Api\ProductInterface" method="getProductdata"/>
+            <resources>
+                <resource ref="anonymous"/>
+            </resources>
+        </route>
+
+        <route method="GET" url="/V1/product_data/:id/:value">
+            <service class="Tha\Devob\Api\ProductInterface" method="getProductdata"/>
+            <resources>
+                <resource ref="anonymous"/>
+            </resources>
+        </route> -->
+    <!-- ===================product api=================== -->
+
+    <!--======================customer api======================-->
+	<route method="GET" url="/V1/customer/:customer_id/">
+		<service class="Tha\Devob\Api\CustomerInterface" method="getCustomerData"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+    <route method="POST" url="/V1/customer/login">
+        <service class="Tha\Devob\Api\CustomerInterface" method="login"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route method="GET" url="/V1/customer_address/:customer_id">
+        <service class="Tha\Devob\Api\CustomerInterface" method="customer_address"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <!--======================customer api======================-->
+
+    <!--======================sid_token api======================-->
+
+    <route method="GET" url="/V1/guest/newsid">
+		<service class="Tha\Devob\Api\GuestInterface" method="getSidValue"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+    <!--======================sid_token api======================-->
+
+
+</routes>
