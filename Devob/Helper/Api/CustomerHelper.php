@@ -9,18 +9,21 @@ class CustomerHelper extends AbstractHelper
     protected $customerDataFactory;
     protected $customerResultFactory;
     protected $registerFormFieldFactory;
+    protected $baseAttributesFactory;
     protected $sessionManager;
 
     public function __construct(
         \Tha\Devob\Model\Api\Data\Customer\CustomerDataFactory $customerDataFactory,
         \Tha\Devob\Model\Api\Data\Customer\CustomerResultFactory $customerResultFactory,
         \Tha\Devob\Model\Api\Data\Customer\RegisterFormFieldFactory $registerFormFieldFactory,
+        \Tha\Devob\Model\Api\Data\BaseAttributesFactory $baseAttributesFactory,
         \Magento\Framework\Session\SessionManager $sessionManager
     )
     {
         $this->customerDataFactory = $customerDataFactory;
         $this->customerResultFactory = $customerResultFactory;
         $this->registerFormFieldFactory = $registerFormFieldFactory;
+        $this->baseAttributesFactory = $baseAttributesFactory;
         $this->sessionManager = $sessionManager;
     }
 
@@ -53,50 +56,42 @@ class CustomerHelper extends AbstractHelper
     public function get_register_form()
     {
         $register_form_fields = null;
+        $register_form_fields[] = $this->field_data('email', "email address", "text", "", 1, [["require","1"], ["placeholder","input email address"]]);
 
-        $email_field = $this->registerFormFieldFactory->create();
-        $email_field->setKey("email");
-        $email_field->setLabel('email address');
-        $email_field->settype("text");
-        $email_field->setValue("");
-        $email_field->setPosition(1);
-        $register_form_fields[] = $email_field;
+        $register_form_fields[] = $this->field_data('password', "Password", "password", "", 2, [["require","1"], ["placeholder","input password"]]);
 
-        $password = $this->registerFormFieldFactory->create();
-        $password->setKey("password");
-        $password->setLabel('password');
-        $password->settype("password");
-        $password->setValue("");
-        $password->setPosition(2);
-        $register_form_fields[] = $password;
+        $register_form_fields[] = $this->field_data('password_confirmation', "confirmation password", "password", "", 3, [["require","1"], ["placeholder","input password"]]);
 
-        $password_confirmation = $this->registerFormFieldFactory->create();
-        $password_confirmation->setKey("password_confirmation");
-        $password_confirmation->setLabel('confirmation password');
-        $password_confirmation->settype("password");
-        $password_confirmation->setValue("");
-        $password->setPosition(3);
-        $register_form_fields[] = $password_confirmation;
+        $register_form_fields[] = $this->field_data('firstname', "First Name", "text", "", 4, [["require","1"], ["placeholder","First Name"]]);
 
-        $first_name = $this->registerFormFieldFactory->create();
-        $first_name->setKey("firstname");
-        $first_name->setLabel('First Name');
-        $first_name->settype("text");
-        $first_name->setValue("");
-        $first_name->setPosition(4);
-        $register_form_fields[] = $first_name;
+        $register_form_fields[] = $this->field_data('lastname', "Last Name", "text", "", 5, [["require","1"], ["placeholder","Last Name"]]);
 
-        $last_name = $this->registerFormFieldFactory->create();
-        $last_name->setKey("lastname");
-        $last_name->setLabel('Last Name');
-        $last_name->settype("text");
-        $last_name->setValue("");
-        $last_name->setPosition(5);
-        $register_form_fields[] = $last_name;
+        $register_form_fields[] = $this->field_data('is_subscribed', "Sign Up For Newsletter", "checkbox", "", 6, [["require","0"]]);
+
+        $register_form_fields[] = $this->field_data('assistance_allowed_checkbox', "Allow remote shopping assistance", "checkbox", "", 7, [["require","0"]]);
 
         return $register_form_fields;
     }
+
+    public function field_data($key="", $label="", $type="", $value="", $position=null, $more_attr=[])
+    {
+        $field_data = $this->registerFormFieldFactory->create();
+        $field_data->setKey($key);
+        $field_data->setLabel($label);
+        $field_data->settype($type);
+        $field_data->setValue($value);
+        $field_data->setPosition($position);
+        $field_data->setMoreAttr(array_map(function($attr){return $this->more_attr_data(...$attr);}, $more_attr));
+        return $field_data;
+    }
+
+    public function more_attr_data($key=null, $value=null, $type=null)
+    {
+        $attr_value = $this->baseAttributesFactory->create();
+        $attr_value->setKey($key);
+        $attr_value->setValue($value);
+        $attr_value->setType($type);
+        return $attr_value;
+    }
 }
-
-
 ?>
