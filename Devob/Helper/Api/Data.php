@@ -13,7 +13,7 @@ class Data extends AbstractHelper
 
     const USE_CURRENT = true;
     const CURRENT = "jmo";
-    const CUR_DIR = "243";
+    const CUR_DIR = "241";
 
     const CACHE_ENA = false;
 
