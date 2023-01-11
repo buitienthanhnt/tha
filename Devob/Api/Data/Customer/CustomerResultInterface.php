@@ -15,6 +15,8 @@ interface CustomerResultInterface{
     const ACTIVE = "active";
     const GROUP_ID = "group_id";
     const THA_SID = "tha_sid";
+    const DEFAULT_BILLING_ADDRESS = "default_billing_address";
+    const DEFAULT_SHIPPING_ADDRESS = "default_shipping_address";
 
     /**
      * @param integer $value
@@ -147,6 +149,28 @@ interface CustomerResultInterface{
      * @return string
      */
     public function getThaSid();
+
+    /**
+     * @param \Magento\Customer\Api\Data\AddressInterface $value
+     * @return $this
+     */
+    public function setDefaultBillingAddress($value);
+
+    /**
+     * @return \Magento\Customer\Api\Data\AddressInterface
+     */
+    public function getDefaultBillingAddress();
+
+    /**
+     * @param \Magento\Customer\Api\Data\AddressInterface $value
+     * @return $this
+     */
+    public function setDefaultShippingAddress($value);
+
+    /**
+     * @return \Magento\Customer\Api\Data\AddressInterface
+     */
+    public function getDefaultShippingAddress();
     
     
 }

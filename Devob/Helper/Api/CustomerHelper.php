@@ -40,6 +40,9 @@ class CustomerHelper extends AbstractHelper
         $customerResult->setUpdatedAt($customer->getUpdatedAt());
         $customerResult->setCreatedIn($customer->getCreatedIn());
         $customerResult->setThaSid($this->sessionManager->getSessionId());
+        $customer_default_address = $this->customer_default_address($customer->getAddresses());
+        $customerResult->setDefaultBillingAddress($customer_default_address["default_billing"]);
+        $customerResult->setDefaultShippingAddress($customer_default_address["default_shipping"]);
 
         $customerData = $this->customerDataFactory->create();
         $customerData->setCode(200);
@@ -48,9 +51,22 @@ class CustomerHelper extends AbstractHelper
         return $customerData;
     }
 
-    public function convert_customer_address($address)
+    public function customer_default_address($address_list = null)
     {
-        # code...
+        $default_value = ["default_billing" => null, "default_shipping" => null];
+        if (count($address_list)) {
+            foreach ($address_list as $value) {
+                if ($value->isDefaultShipping()) {
+                    $default_value["default_shipping"] = $value;
+                }
+    
+                if ($value->isDefaultBilling()) {
+                    $default_value["default_billing"] = $value;
+                }
+            }
+        }
+
+        return $default_value;
     }
 
     public function get_register_form()

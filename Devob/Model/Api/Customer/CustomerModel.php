@@ -36,14 +36,16 @@ class CustomerModel
         }
     }
 
-    public function get_customer_address($customer_id)
+    /**
+     * Magento\Customer\Model\Address\AddressModelInterface
+     */
+    public function get_customer_address($customer_id) 
     {
         if (!$customer = $this->customerRepository->getById($customer_id)) {
             throw new Exception("the customer data not exist!!", 300);
         }
         $address = $customer->getAddresses();
         return $address;
-        return $this->customerHelper->convert_customer_address($address);
     }
 
     public function get_register_form()

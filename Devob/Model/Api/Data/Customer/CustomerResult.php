@@ -125,6 +125,26 @@ class CustomerResult extends AbstractExtensibleModel implements CustomerResultIn
     {
         return $this->getData(self::THA_SID);
     }
+
+    function setDefaultBillingAddress($value)
+    {
+        return $this->setData(self::DEFAULT_BILLING_ADDRESS, $value);
+    }
+
+    function getDefaultBillingAddress()
+    {
+        return $this->getData(self::DEFAULT_BILLING_ADDRESS);
+    }
+
+    function setDefaultShippingAddress($value)
+    {
+        return $this->setData(self::DEFAULT_SHIPPING_ADDRESS, $value);
+    }
+
+    function getDefaultShippingAddress()
+    {
+        return $this->getData(self::DEFAULT_SHIPPING_ADDRESS);
+    }
 }
 
 

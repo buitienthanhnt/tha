@@ -24,7 +24,7 @@ public function login();
 
 /**
  * @param integer $customer_id
- * @return mixed
+ * @return \Magento\Customer\Api\Data\AddressInterface[]
  */
 public function customer_address($customer_id);
 
