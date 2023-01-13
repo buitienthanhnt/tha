@@ -10,6 +10,7 @@ class CustomerHelper extends AbstractHelper
     protected $customerResultFactory;
     protected $registerFormFieldFactory;
     protected $baseAttributesFactory;
+    protected $ordersFactory;
     protected $sessionManager;
 
     public function __construct(
@@ -17,6 +18,7 @@ class CustomerHelper extends AbstractHelper
         \Tha\Devob\Model\Api\Data\Customer\CustomerResultFactory $customerResultFactory,
         \Tha\Devob\Model\Api\Data\Customer\RegisterFormFieldFactory $registerFormFieldFactory,
         \Tha\Devob\Model\Api\Data\BaseAttributesFactory $baseAttributesFactory,
+        \Tha\Devob\Model\Api\Data\Order\OrdersFactory $ordersFactory,
         \Magento\Framework\Session\SessionManager $sessionManager
     )
     {
@@ -24,6 +26,7 @@ class CustomerHelper extends AbstractHelper
         $this->customerResultFactory = $customerResultFactory;
         $this->registerFormFieldFactory = $registerFormFieldFactory;
         $this->baseAttributesFactory = $baseAttributesFactory;
+        $this->ordersFactory = $ordersFactory;
         $this->sessionManager = $sessionManager;
     }
 
@@ -108,6 +111,12 @@ class CustomerHelper extends AbstractHelper
         $attr_value->setValue($value);
         $attr_value->setType($type);
         return $attr_value;
+    }
+
+    public function format_order_data($orders = null)
+    {
+       $ordersFactory = $this->ordersFactory->create();
+       return $ordersFactory;
     }
 }
 ?>

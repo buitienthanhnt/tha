@@ -118,6 +118,13 @@
         </resources>
     </route>
 
+    <route method="GET" url="/V1/recent_order/:customer_id">
+        <service class="Tha\Devob\Api\CustomerInterface" method="recent_order"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
     <!--======================customer api======================-->
 
     <!--======================sid_token api======================-->

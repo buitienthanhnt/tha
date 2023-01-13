@@ -48,6 +48,11 @@ class Customer implements CustomerInterface
     {
         return $this->customerModel->get_register_form();
     }
+
+    public function recent_order($customer_id)
+    {
+        return $this->customerModel->recent_order($customer_id);
+    }
 }
 
 ?>

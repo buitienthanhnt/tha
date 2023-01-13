@@ -6,19 +6,33 @@ use Exception;
 
 class CustomerModel
 {
+    const ORDER_LIMIT = 5;
+
+    protected $_customerSession;
     protected $customerRepository;
     protected $customerHelper;
     protected $accountManagementInterface;
+    protected $_orderCollectionFactory;
+    protected $storeManager;
+    protected $_orderConfig;
 
     public function __construct(
+        \Magento\Customer\Model\Session $customerSession,
         \Magento\Customer\Model\ResourceModel\CustomerRepository $customerRepository,
         \Tha\Devob\Helper\Api\CustomerHelper $customerHelper,
-        \Magento\Customer\Api\AccountManagementInterface $accountManagementInterface
+        \Magento\Customer\Api\AccountManagementInterface $accountManagementInterface,
+        \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Sales\Model\Order\Config $orderConfig
     )
     {
+        $this->_customerSession = $customerSession;
         $this->customerRepository = $customerRepository;
         $this->customerHelper = $customerHelper;
         $this->accountManagementInterface = $accountManagementInterface;
+        $this->_orderCollectionFactory = $orderCollectionFactory;
+        $this->storeManager = $storeManager;
+        $this->_orderConfig = $orderConfig;
     }
 
     public function getCustomerData($customer_id)
@@ -51,6 +65,29 @@ class CustomerModel
     public function get_register_form()
     {
         return $this->customerHelper->get_register_form();
+    }
+
+    public function recent_order($customer_id)
+    {
+        $orders = $this->_orderCollectionFactory->create()->addAttributeToSelect(
+            '*'
+        )->addAttributeToFilter(
+            'customer_id',
+            $customer_id
+        )->addAttributeToFilter(
+            'store_id',
+            $this->storeManager->getStore()->getId()
+        )->addAttributeToFilter(
+            'status',
+            ['in' => $this->_orderConfig->getVisibleOnFrontStatuses()]
+        )->addAttributeToSort(
+            'created_at',
+            'desc'
+        )->setPageSize(
+            self::ORDER_LIMIT
+        )->load();
+
+        return $this->customerHelper->format_order_data($orders);
     }
 }
 

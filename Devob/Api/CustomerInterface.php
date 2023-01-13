@@ -37,5 +37,14 @@ public function customer_address($customer_id);
  */
 public function get_register_form();
 
+/**
+ * get recent order in customer detail.
+ * method: get 
+ * url: {{url}}/{{res}}/{{v}}/customer/recent_order/:customer_id?_tha_sid={{_tha_sid}}
+ * @param integer $customer_id
+ * @return mixed
+ */
+public function recent_order($customer_id);
+
 }
 ?>
