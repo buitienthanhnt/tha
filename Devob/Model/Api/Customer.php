@@ -53,6 +53,12 @@ class Customer implements CustomerInterface
     {
         return $this->customerModel->recent_order($customer_id);
     }
+
+    public function get_wishlist()
+    {
+        # code...
+        return null;
+    }
 }
 
 ?>

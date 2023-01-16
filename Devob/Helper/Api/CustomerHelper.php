@@ -11,6 +11,7 @@ class CustomerHelper extends AbstractHelper
     protected $registerFormFieldFactory;
     protected $baseAttributesFactory;
     protected $ordersFactory;
+    protected $orderItemFactory;
     protected $sessionManager;
 
     public function __construct(
@@ -19,6 +20,7 @@ class CustomerHelper extends AbstractHelper
         \Tha\Devob\Model\Api\Data\Customer\RegisterFormFieldFactory $registerFormFieldFactory,
         \Tha\Devob\Model\Api\Data\BaseAttributesFactory $baseAttributesFactory,
         \Tha\Devob\Model\Api\Data\Order\OrdersFactory $ordersFactory,
+        \Tha\Devob\Model\Api\Data\Order\OrderItemFactory $orderItemFactory,
         \Magento\Framework\Session\SessionManager $sessionManager
     )
     {
@@ -27,6 +29,7 @@ class CustomerHelper extends AbstractHelper
         $this->registerFormFieldFactory = $registerFormFieldFactory;
         $this->baseAttributesFactory = $baseAttributesFactory;
         $this->ordersFactory = $ordersFactory;
+        $this->orderItemFactory = $orderItemFactory;
         $this->sessionManager = $sessionManager;
     }
 
@@ -116,7 +119,27 @@ class CustomerHelper extends AbstractHelper
     public function format_order_data($orders = null)
     {
        $ordersFactory = $this->ordersFactory->create();
-       return $ordersFactory;
+       $orderItems = null;
+       if ($orders) {
+        foreach ($orders as $order) {
+            $orderItem = $this->orderItemFactory->create();
+            $orderItem->setIncrementId($order->getData("increment_id"))
+                      ->setDate($order->getData("customer_dob"))
+                      ->setShipTo($order->getData("customer_firstname")." ".$order->getData("customer_lastname"))
+                      ->setOrderTotal($order->getData("total_invoiced"))
+                      ->setStatus($order->getStatus())
+                      ->setQuoteId($order->getQuoteId())
+                      ->setStoreId($order->getStoreId())
+                      ->setShippingDescription($order->getData("shipping_description"))
+                      ->setCustomerId($order->getCustomerId())
+                      ->setGrandTotal($order->getGrandTotal())
+                      ->setShippingAmount($order->getData("shipping_amount"))
+                      ->setSubtotal($order->getData("subtotal"))
+                      ->setTaxAmount($order->getData("tax_amount"))->setWeight($order->getWeight());
+            $orderItems[] = $orderItem;
+        }
+       }
+       return $ordersFactory->setResult($orderItems);
     }
 }
 ?>

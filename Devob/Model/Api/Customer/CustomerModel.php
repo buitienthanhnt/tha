@@ -15,6 +15,7 @@ class CustomerModel
     protected $_orderCollectionFactory;
     protected $storeManager;
     protected $_orderConfig;
+    protected $request;
 
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
@@ -23,7 +24,8 @@ class CustomerModel
         \Magento\Customer\Api\AccountManagementInterface $accountManagementInterface,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Sales\Model\Order\Config $orderConfig
+        \Magento\Sales\Model\Order\Config $orderConfig,
+        \Magento\Framework\App\Request\Http $request
     )
     {
         $this->_customerSession = $customerSession;
@@ -33,6 +35,7 @@ class CustomerModel
         $this->_orderCollectionFactory = $orderCollectionFactory;
         $this->storeManager = $storeManager;
         $this->_orderConfig = $orderConfig;
+        $this->request = $request;
     }
 
     public function getCustomerData($customer_id)
@@ -43,7 +46,8 @@ class CustomerModel
     public function login($user, $pass)
     {
         $customer = $this->accountManagementInterface->authenticate($user, $pass);
-        if ($customer) {
+        if ($customer->getId()) {
+            $this->_customerSession->loginById($customer->getId());
             return $this->customerHelper->convert_customer($customer);
         }else {
             throw new Exception("data not has", 300);
@@ -73,7 +77,7 @@ class CustomerModel
             '*'
         )->addAttributeToFilter(
             'customer_id',
-            $customer_id
+            $this->_customerSession->getCustomerId() ?: $customer_id
         )->addAttributeToFilter(
             'store_id',
             $this->storeManager->getStore()->getId()
@@ -84,7 +88,7 @@ class CustomerModel
             'created_at',
             'desc'
         )->setPageSize(
-            self::ORDER_LIMIT
+            $this->request->getParam("_tha_p_limit") ?: self::ORDER_LIMIT
         )->load();
 
         return $this->customerHelper->format_order_data($orders);

@@ -8,7 +8,7 @@ interface OrdersInterface extends BaseAttributesInterface{
 
     /**
      * set result data
-     * @param \Tha\Devob\Api\Data\Order\OrderItemInterface[]
+     * @param \Tha\Devob\Api\Data\Order\OrderItemInterface[] $values
      * @return $this
      */
     public function setResult($values);

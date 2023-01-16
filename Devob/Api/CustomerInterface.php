@@ -40,11 +40,22 @@ public function get_register_form();
 /**
  * get recent order in customer detail.
  * method: get 
- * url: {{url}}/{{res}}/{{v}}/customer/recent_order/:customer_id?_tha_sid={{_tha_sid}}
+ * url: {{url}}/{{res}}/{{v}}/recent_order/[]?_tha_sid={{_tha_sid}}&_tha_p_limit=[]
+ * ex: http://zxc.com/magento2git/rest/V1/recent_order/1?_tha_sid=4vj56rgnc8u3eee54spf80b4ku&_tha_p_limit=1
  * @param integer $customer_id
- * @return mixed
+ * @return \Tha\Devob\Api\Data\Order\OrdersInterface
  */
 public function recent_order($customer_id);
+
+/**
+ * get wishlist by customer.
+ * method: get 
+ * url: {{url}}/{{res}}/{{v}}/
+ * ex: http://zxc.com/magento2git/rest/V1/recent_order/1?_tha_sid=4vj56rgnc8u3eee54spf80b4ku&_tha_p_limit=1
+ * @param integer $customer_id
+ * @return \Tha\Devob\Api\Data\Order\OrdersInterface
+ */
+public function get_wishlist();
 
 }
 ?>
