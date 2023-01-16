@@ -1,13 +1,15 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <preference for="Tha\Devob\Api\ProductInterface" type="Tha\Devob\Model\Api\Product"/>
+    <preference for="Tha\Devob\Api\ProductInterface" type="Tha\Devob\Model\Api\Product" />
 
-    <preference for="Tha\Devob\Api\CategoryInterface" type="Tha\Devob\Model\Api\Category"/>
+    <preference for="Tha\Devob\Api\CategoryInterface" type="Tha\Devob\Model\Api\Category" />
 
-    <preference for="Tha\Devob\Api\CustomerInterface" type="Tha\Devob\Model\Api\Customer"/>
+    <preference for="Tha\Devob\Api\CustomerInterface" type="Tha\Devob\Model\Api\Customer" />
 
-    <preference for="Tha\Devob\Api\GuestInterface" type="Tha\Devob\Model\Api\Guest"/>
+    <preference for="Tha\Devob\Api\GuestInterface" type="Tha\Devob\Model\Api\Guest" />
+
+    <preference for="Tha\Devob\Api\WishlistInterface" type="Tha\Devob\Model\Api\Wishlist" />
 </config>
