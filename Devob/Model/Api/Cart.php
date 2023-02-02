@@ -23,4 +23,14 @@ class Cart implements CartInterface
             \Magento\Framework\Exception\InputException::invalidFieldValue("cart_id", (string) $cart_id);
         }
     }
+
+    public function getCartData()
+    {
+        return $this->cartModel->getCartData();
+    }
+
+    public function addToCart()
+    {
+        return $this->cartModel->addToCart();
+    }
 }

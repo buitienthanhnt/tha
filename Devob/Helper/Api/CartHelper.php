@@ -16,7 +16,7 @@ class CartHelper extends AbstractHelper
         $this->cartDetailFactory = $cartDetailFactory;
     }
 
-    public function formatCartData($quote)
+    public function formatCartData($quote = null)
     {
         # code...
         return $this->cartDetailFactory->create();

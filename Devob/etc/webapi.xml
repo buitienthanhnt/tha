@@ -120,6 +120,20 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+
+    <route method="GET" url="/V1/cart/data">
+        <service class="Tha\Devob\Api\CartInterface" method="getCartData" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route method="POST" url="/V1/cart/addToCart">
+        <service class="Tha\Devob\Api\CartInterface" method="addToCart" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
     <!--======================cart api======================-->
 
 
