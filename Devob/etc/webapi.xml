@@ -1,140 +1,93 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
 
     <!-- ==================category api======================= -->
     <!-- <route method="GET" url="/V1/category_data">
-		<service
-    class="Tha\Devob\Api\CategoryInterface" method="getCategoryValue"/>
+		<service class="Tha\Devob\Api\CategoryInterface" method="getCategoryValue"/>
 		<resources>
-			<resource
-    ref="anonymous"/>
+			<resource ref="anonymous"/>
 		</resources>
 	</route>
 
 	<route method="GET" url="V1/category_tree">
-    <service class="Tha\Devob\Api\CategoryInterface" method="getCategoryTree"/>
+		<service class="Tha\Devob\Api\CategoryInterface" method="getCategoryTree"/>
 		<resources>
-    <resource ref="anonymous"/>
+			<resource ref="anonymous"/>
 		</resources>
 	</route> -->
     <!-- =================================== -->
     <route method="GET" url="V1/category_List">
-        <service class="Tha\Devob\Api\CategoryInterface" method="getCategoryList" />
+        <service class="Tha\Devob\Api\CategoryInterface" method="getCategoryList"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
     <!-- ==================category api======================= -->
 
     <!-- ===================product api=================== -->
     <route method="GET" url="/V1/productList/:category_id/">
-        <service class="Tha\Devob\Api\ProductInterface" method="getProductList" />
+        <service class="Tha\Devob\Api\ProductInterface" method="getProductList"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
 
     <route method="GET" url="/V1/productRelated/:product_id/">
-        <service class="Tha\Devob\Api\ProductInterface" method="getProductRelated" />
+        <service class="Tha\Devob\Api\ProductInterface" method="getProductRelated"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
 
     <route method="GET" url="/V1/productUpsell/:product_id/">
-        <service class="Tha\Devob\Api\ProductInterface" method="productUpsell" />
+        <service class="Tha\Devob\Api\ProductInterface" method="productUpsell"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
 
     <route method="GET" url="/V1/productDetail/:product_id/">
-        <service class="Tha\Devob\Api\ProductInterface" method="getProductDetail" />
+        <service class="Tha\Devob\Api\ProductInterface" method="getProductDetail"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
-    <!-- ================================= -->
-    <!-- <route method="GET" url="/V1/thacall/post">
-            <service
-    class="Tha\Devob\Api\ProductInterface" method="getList"/>
-            <resources>
-                <resource
-    ref="anonymous"/>
-            </resources>
-        </route>
-
-        <route method="GET"
-    url="/V1/devob/detail">
-            <service class="Tha\Devob\Api\ProductInterface"
-    method="getDetail"/>
-            <resources>
-                <resource ref="anonymous"/>
-    </resources>
-        </route>
-
-        <route method="GET"
-    url="/V1/category_detail/:cate_id">
-            <service
-    class="Tha\Devob\Api\CategoryInterface" method="getCategoryData"/>
-            <resources>
-    <resource ref="anonymous"/>
-            </resources>
-        </route>
-
-        <route
-    method="GET" url="/V1/product_data/:id/:value">
-            <service
-    class="Tha\Devob\Api\ProductInterface" method="getProductdata"/>
-            <resources>
-    <resource ref="anonymous"/>
-            </resources>
-        </route>
-
-        <route
-    method="GET" url="/V1/product_data/:id/:value">
-            <service
-    class="Tha\Devob\Api\ProductInterface" method="getProductdata"/>
-            <resources>
-    <resource ref="anonymous"/>
-            </resources>
-        </route> -->
     <!-- ===================product api=================== -->
 
     <!--======================customer api======================-->
     <route method="GET" url="/V1/customer/:customer_id/">
-        <service class="Tha\Devob\Api\CustomerInterface" method="getCustomerData" />
+        <service class="Tha\Devob\Api\CustomerInterface" method="getCustomerData"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
 
     <route method="POST" url="/V1/customer/login">
-        <service class="Tha\Devob\Api\CustomerInterface" method="login" />
+        <service class="Tha\Devob\Api\CustomerInterface" method="login"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
 
     <route method="GET" url="/V1/customer_address/:customer_id">
-        <service class="Tha\Devob\Api\CustomerInterface" method="customer_address" />
+        <service class="Tha\Devob\Api\CustomerInterface" method="customer_address"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
 
     <route method="GET" url="/V1/get_register_form">
-        <service class="Tha\Devob\Api\CustomerInterface" method="get_register_form" />
+        <service class="Tha\Devob\Api\CustomerInterface" method="get_register_form"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
 
     <route method="GET" url="/V1/recent_order/:customer_id">
-        <service class="Tha\Devob\Api\CustomerInterface" method="recent_order" />
+        <service class="Tha\Devob\Api\CustomerInterface" method="recent_order"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
 
@@ -143,19 +96,28 @@
     <!--======================sid_token api======================-->
 
     <route method="GET" url="/V1/guest/newsid">
-        <service class="Tha\Devob\Api\GuestInterface" method="getSidValue" />
+        <service class="Tha\Devob\Api\GuestInterface" method="getSidValue"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
 
     <!--======================sid_token api======================-->
 
+    <!--======================wishlist api======================-->
+    <route method="GET" url="/V1/wishlist/all_items">
+        <service class="Tha\Devob\Api\WishlistInterface" method="all_items"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <!--======================wishlist api======================-->
+
     <!--======================cart api======================-->
     <route method="GET" url="/V1/cart/detail/:cart_id">
         <service class="Tha\Devob\Api\CartInterface" method="getCartDetail" />
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="anonymous"/>
         </resources>
     </route>
     <!--======================cart api======================-->

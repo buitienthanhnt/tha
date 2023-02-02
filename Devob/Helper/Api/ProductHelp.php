@@ -94,6 +94,9 @@ class ProductHelp extends AbstractHelper
         parent::__construct($context);
     }
 
+    /**
+     * @return \Tha\Devob\Api\Data\Product\ProductListInterface|null
+     */
     public function convertProductList($product_datas, $category_id = null)
     {
         $total = function($category_id = null){
