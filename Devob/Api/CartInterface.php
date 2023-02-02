@@ -8,9 +8,10 @@ interface CartInterface{
      * method: GET
      * url: {{url}}/{{res}}/V1/cart/detail?_tha_sid={{_tha_sid}}
      * ex: 
+     * @param int $cart_id
      * @return Tha\Devob\Api\Data\Cart\CartDetailInterface
      */
-    public function getCartDetail();
+    public function getCartDetail($cart_id);
 }
 
 ?>

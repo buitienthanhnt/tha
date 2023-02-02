@@ -10,4 +10,6 @@
     <preference for="Tha\Devob\Api\CustomerInterface" type="Tha\Devob\Model\Api\Customer"/>
 
     <preference for="Tha\Devob\Api\GuestInterface" type="Tha\Devob\Model\Api\Guest"/>
+
+    <preference for="Tha\Devob\Api\CartInterface" type="Tha\Devob\Model\Api\Cart"/>
 </config>

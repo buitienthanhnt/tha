@@ -152,7 +152,7 @@
     <!--======================sid_token api======================-->
 
     <!--======================cart api======================-->
-    <route method="GET" url="/V1/cart/detail">
+    <route method="GET" url="/V1/cart/detail/:cart_id">
         <service class="Tha\Devob\Api\CartInterface" method="getCartDetail" />
         <resources>
             <resource ref="anonymous" />
