@@ -9,11 +9,11 @@ class Data extends AbstractHelper
     const IP_MO = "192.168.1.153";
     // const ADDRESS_243 = "magento243/pub";
     const ADDRESS_243 = "magento242/pub";
-    // const ADDRESS_241 = "magento241";// m4700
-    const ADDRESS_241 = "magento2git";  // jm360desktop
+     const ADDRESS_241 = "magento243x";// m4700
+//    const ADDRESS_241 = "magento2git";  // jm360desktop
 
     const USE_CURRENT = true;
-    const CURRENT = "jm";
+    const CURRENT = "jmo";
     const CUR_DIR = "241";
 
     const CACHE_ENA = false;
