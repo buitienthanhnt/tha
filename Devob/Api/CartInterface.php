@@ -34,7 +34,7 @@ interface CartInterface{
 
      /**
      * update cart item qty
-     * method: UPDATE
+     * method: UPDATE qty
      * url: {{url}}/{{res}}/V1/cart/updateQty?_tha_sid={{_tha_sid}}
      * ex: http://magento243x.com/rest/V1/cart/updateQty?_tha_sid=9sfg17dtrrgrqbb3s31kup0gp4&item_id=11&qty=3
      * @return Tha\Devob\Api\Data\Cart\CartDetailInterface
