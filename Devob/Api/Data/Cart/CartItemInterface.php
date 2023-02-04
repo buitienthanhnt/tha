@@ -1,9 +1,9 @@
 <?php
 namespace Tha\Devob\Api\Data\Cart;
 
-use Tha\Devob\Api\Data\BaseAttributesInterface;
+use Tha\Devob\Api\Data\MidAttributeInterface;
 
-interface CartItemInterface extends BaseAttributesInterface{
+interface CartItemInterface extends MidAttributeInterface{
     const ID = "id";
     const NAME = "name";
     const ITEM_URL = "item_url";

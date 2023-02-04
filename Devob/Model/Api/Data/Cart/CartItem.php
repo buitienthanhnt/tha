@@ -2,9 +2,9 @@
 namespace Tha\Devob\Model\Api\Data\Cart;
 
 use Tha\Devob\Api\Data\Cart\CartItemInterface;
-use Tha\Devob\Model\Api\Data\BaseAttributes;
+use Tha\Devob\Model\Api\Data\MidAttribute;
 
-class CartItem extends BaseAttributes implements CartItemInterface
+class CartItem extends MidAttribute implements CartItemInterface
 {
     public function setId($value)
     {

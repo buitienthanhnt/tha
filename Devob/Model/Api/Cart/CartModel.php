@@ -8,6 +8,7 @@ use Magento\Quote\Model\QuoteRepository;
 use Tha\Devob\Helper\Api\CartHelper;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Checkout\Model\Cart as CustomerCart;
+use Magento\Checkout\Model\Cart\RequestQuantityProcessor;
 use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
 
 class CartModel{
@@ -19,6 +20,7 @@ class CartModel{
     protected $productRepository;
     protected $cart;
     protected $_eventManager;
+    protected $quantityProcessor;
 
     public function __construct(
         QuoteRepository $quoteRepository,
@@ -28,7 +30,8 @@ class CartModel{
         \Magento\Framework\ObjectManagerInterface $objectManager,
         ProductRepository $productRepository,
         CustomerCart $cart,
-        EventManagerInterface $_eventManager
+        EventManagerInterface $_eventManager,
+        RequestQuantityProcessor $quantityProcessor
     )
     {
         $this->quoteRepository = $quoteRepository;
@@ -39,6 +42,7 @@ class CartModel{
         $this->productRepository = $productRepository;
         $this->cart = $cart;
         $this->_eventManager = $_eventManager;
+        $this->quantityProcessor = $quantityProcessor ?: $this->_objectManager->get(RequestQuantityProcessor::class);
     }
 
     public function getCartDetail($cart_id = null)
@@ -50,6 +54,9 @@ class CartModel{
     public function getCartData()
     {
         $quote = $this->_checkoutSession->getQuote();
+        if ($id = $quote->getId()){
+            $quote = $this->quoteRepository->get($id);
+        }
         return $this->cartHelper->formatCartData($quote);
     }
 
@@ -106,6 +113,36 @@ class CartModel{
             // return $this->goBack();
         }
 
+        return $this->getCartData();
+    }
+
+    public function updateQty()
+    {
+        $params = $this->request->getParams();
+        if (isset($params["item_id"]) && isset($params["qty"]) ) {
+            $format_param = array((int) $params["item_id"] => array("qty" => $params["qty"]));
+            if (!$this->cart->getCustomerSession()->getCustomerId() && $this->cart->getQuote()->getCustomerId()) {
+                $this->cart->getQuote()->setCustomerId(null);
+            }
+            $cartData = $this->quantityProcessor->process($format_param);
+            $cartData = $this->cart->suggestItemsQty($cartData);
+            $this->cart->updateItems($cartData)->save();
+            return $this->getCartData();
+
+        }else {
+            \Magento\Framework\Exception\InputException::requiredField("item_id & qty");
+        }
+    }
+
+    public function emptyCart()
+    {
+        try {
+            $this->cart->truncate()->save();
+        } catch (\Magento\Framework\Exception\LocalizedException $exception) {
+            \Magento\Framework\Exception\InputException::requiredField($exception->getMessage());
+        } catch (\Exception $exception) {
+            \Magento\Framework\Exception\InputException::requiredField("We can\'t update the shopping cart.");
+        }
         return $this->getCartData();
     }
 

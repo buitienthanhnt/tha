@@ -27,10 +27,29 @@ interface CartInterface{
      * add product to cart
      * method: POST
      * url: {{url}}/{{res}}/V1/cart/addToCart?_tha_sid={{_tha_sid}}
-     * ex: http://zxc.com/magento2git/rest/V1/cart/addToCart
+     * ex: http://magento243x.com/rest/V1/cart/addToCart?product=8&qty=2&_tha_sid=9sfg17dtrrgrqbb3s31kup0gp4
      * @return Tha\Devob\Api\Data\Cart\CartDetailInterface
      */
     public function addToCart();
+
+     /**
+     * update cart item qty
+     * method: UPDATE
+     * url: {{url}}/{{res}}/V1/cart/updateQty?_tha_sid={{_tha_sid}}
+     * ex: http://magento243x.com/rest/V1/cart/updateQty?_tha_sid=9sfg17dtrrgrqbb3s31kup0gp4&item_id=11&qty=3
+     * @return Tha\Devob\Api\Data\Cart\CartDetailInterface
+     */
+    public function updateQty();
+
+    /**
+     * empty cart
+     * method: DELETE
+     * url: {{url}}/{{res}}/V1/cart/emptyCart?_tha_sid={{_tha_sid}}
+     * ex: http://zxc.com/magento2git/rest/V1/cart/emptyCart
+     * @return Tha\Devob\Api\Data\Cart\CartDetailInterface
+     */
+    public function emptyCart();
+
 }
 
 ?>

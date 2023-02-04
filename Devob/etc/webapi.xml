@@ -134,6 +134,20 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+
+    <route method="PUT" url="/V1/cart/updateQty">
+        <service class="Tha\Devob\Api\CartInterface" method="updateQty" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route method="DELETE" url="/V1/cart/emptyCart">
+        <service class="Tha\Devob\Api\CartInterface" method="emptyCart" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
     <!--======================cart api======================-->
 
 

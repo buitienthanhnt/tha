@@ -3,6 +3,7 @@
 namespace Tha\Devob\Helper\Api;
 
 use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Tha\Devob\Model\Api\Data\BaseAttributesFactory;
 use Tha\Devob\Model\Api\Data\Cart\CartDetailFactory;
 use Tha\Devob\Model\Api\Data\Cart\CartItemFactory;
@@ -26,17 +27,19 @@ class CartHelper extends AbstractHelper
     public function formatCartData($quote = null)
     {
         $cart = $this->cartDetailFactory->create();
-        $cart->setId($quote->getId());
-        $cart->setStoreId($quote->getStoreId());
-        $cart->setItemCount($quote->getItemsCount());
-        $cart->setItemQty($quote->getItemsQty());
-        $cart->setCartApplyRules($quote->getAppliedRuleIds());
-        $cart->setGlabalCurrencyCode($quote->getGlobalCurrencyCode());
-        $cart->setQuoteCurrencyCode($quote->getData("quote_currency_code"));
-        $cart->setPrices($this->formatQuotePrices($quote));
-        $cart->setItems($this->getQuoteItems($quote));
-        $cart->setCreatedAt($quote->getCreatedAt());
-        $cart->setUpdatedAt($quote->getUpdatedAt());
+        try {
+            $cart->setId($quote->getId());
+            $cart->setStoreId($quote->getStoreId());
+            $cart->setItemCount($quote->getItemsCount());
+            $cart->setItemQty($quote->getItemsQty());
+            $cart->setCartApplyRules($quote->getAppliedRuleIds());
+            $cart->setGlabalCurrencyCode($quote->getGlobalCurrencyCode());
+            $cart->setQuoteCurrencyCode($quote->getData("quote_currency_code"));
+            $cart->setPrices($this->formatQuotePrices($quote));
+            $cart->setItems($this->getQuoteItems($quote));
+            $cart->setCreatedAt($quote->getCreatedAt());
+            $cart->setUpdatedAt($quote->getUpdatedAt());
+        }catch (NoSuchEntityException $exception){}
         return $cart;
     }
 
@@ -47,7 +50,7 @@ class CartHelper extends AbstractHelper
             foreach ($items as $item) {
                 $_items[] = $this->formatItem($item);
             }
-            return $items;
+            return $_items;
         }
     }
 
@@ -60,7 +63,7 @@ class CartHelper extends AbstractHelper
         $cartItem->setCreatedAt($item->getCreatedAt());
         $cartItem->setUpdatedAt($item->getUpdatedAt());
         $cartItem->setStoreId($item->getStoreId());
-        $cartItem->setItemQty($item->getQty());
+        $cartItem->setItemQty((int) $item->getQty());
         $cartItem->setType($item->getProductType());
         $cartItem->setPrices($this->formatQuoteItemPrice($item));
         $cartItem->setApplyRuleIds($item->getAppliedRuleIds()); //applied_rule_ids

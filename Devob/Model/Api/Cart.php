@@ -33,4 +33,14 @@ class Cart implements CartInterface
     {
         return $this->cartModel->addToCart();
     }
+
+    public function updateQty()
+    {
+        return $this->cartModel->updateQty();
+    }
+
+    public function emptyCart()
+    {
+        return $this->cartModel->emptyCart();
+    }
 }
