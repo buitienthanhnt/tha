@@ -25,7 +25,6 @@ class CartHelper extends AbstractHelper
 
     public function formatCartData($quote = null)
     {
-        # code...
         $cart = $this->cartDetailFactory->create();
         $cart->setId($quote->getId());
         $cart->setStoreId($quote->getStoreId());
@@ -34,13 +33,54 @@ class CartHelper extends AbstractHelper
         $cart->setCartApplyRules($quote->getAppliedRuleIds());
         $cart->setGlabalCurrencyCode($quote->getGlobalCurrencyCode());
         $cart->setQuoteCurrencyCode($quote->getData("quote_currency_code"));
-        $cart->setPrices($this->formatPrices($quote));
-
-        $cartItemFactory = $this->cartItemFactory->create();
-        return $cart->setItems([$cartItemFactory]);
+        $cart->setPrices($this->formatQuotePrices($quote));
+        $cart->setItems($this->getQuoteItems($quote));
+        $cart->setCreatedAt($quote->getCreatedAt());
+        $cart->setUpdatedAt($quote->getUpdatedAt());
+        return $cart;
     }
 
-    public function formatPrices($quote)
+    public function getQuoteItems($quote)
+    {
+        $_items = null;
+        if ($items = $quote->getItems()) {
+            foreach ($items as $item) {
+                $_items[] = $this->formatItem($item);
+            }
+            return $items;
+        }
+    }
+
+    public function formatItem($item)
+    {
+        $cartItem = $this->cartItemFactory->create();
+        $cartItem->setId($item->getItemId());
+        $cartItem->setName($item->getName());
+        $cartItem->setQuoteId($item->getQuoteId());
+        $cartItem->setCreatedAt($item->getCreatedAt());
+        $cartItem->setUpdatedAt($item->getUpdatedAt());
+        $cartItem->setStoreId($item->getStoreId());
+        $cartItem->setItemQty($item->getQty());
+        $cartItem->setType($item->getProductType());
+        $cartItem->setPrices($this->formatQuoteItemPrice($item));
+        $cartItem->setApplyRuleIds($item->getAppliedRuleIds()); //applied_rule_ids
+        return $cartItem;
+    }
+
+    public function formatQuoteItemPrice($item)
+    {
+        $prices = null;
+        $prices[] = $this->getBaseAttributeData(...["price", $item->getData("price")]);
+        $prices[] = $this->getBaseAttributeData(...["price_incl_tax", $item->getData("price_incl_tax")]);
+        $prices[] = $this->getBaseAttributeData(...["discount_tax_compensation_amount", $item->getData("discount_tax_compensation_amount")]);
+        $prices[] = $this->getBaseAttributeData(...["tax_amount", $item->getData("tax_amount")]);
+        $prices[] = $this->getBaseAttributeData(...["tax_percent", $item->getData("tax_percent")]);
+        $prices[] = $this->getBaseAttributeData(...["discount_amount", $item->getData("discount_amount")]);
+        $prices[] = $this->getBaseAttributeData(...["discount_percent", $item->getData("discount_percent")]);
+        return $prices;
+    }
+
+    public function formatQuotePrices($quote)
     {
         $prices = null;
         $prices[] = $this->getBaseAttributeData(...["subtotal", $quote->getData("subtotal")]);

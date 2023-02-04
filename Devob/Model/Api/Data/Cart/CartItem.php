@@ -41,6 +41,16 @@ class CartItem extends BaseAttributes implements CartItemInterface
         return $this->getData(self::IMAGE_PATH);
     }
 
+    public function setQuoteId($value)
+    {
+        return $this->setData(self::QUOTE_ID, $value);
+    }
+
+    public function getQuoteId()
+    {
+        return $this->getData(self::QUOTE_ID);
+    }
+
     public function getName()
     {
         return $this->getData(self::NAME);
@@ -114,5 +124,15 @@ class CartItem extends BaseAttributes implements CartItemInterface
     public function getRequestOptionHtml()
     {
         return $this->getData(self::REQUEST_OPTION_HTML);
+    }
+
+    public function setApplyRuleIds($value)
+    {
+        return $this->setData(self::APPLY_RULE_IDS, $value);
+    }
+
+    public function getApplyRuleIds()
+    {
+        return $this->getData(self::APPLY_RULE_IDS);
     }
 }

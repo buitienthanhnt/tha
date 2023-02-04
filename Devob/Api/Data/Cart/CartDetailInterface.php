@@ -119,7 +119,7 @@ interface CartDetailInterface extends BaseAttributesInterface{
      */
     public function getItemQty();
 
-        /**
+    /**
      * @param string $value
      * @return $this
      */

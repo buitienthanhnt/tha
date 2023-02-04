@@ -8,6 +8,7 @@ interface CartItemInterface extends BaseAttributesInterface{
     const NAME = "name";
     const ITEM_URL = "item_url";
     const IMAGE_PATH = "image_path";
+    const QUOTE_ID = "quote_id";
     const STORE_ID = "store_id";
     const CREATED_AT = "created_at";
     const UPDATED_AT = "updated_at";
@@ -15,6 +16,8 @@ interface CartItemInterface extends BaseAttributesInterface{
     const PRICES = "prices";
     const REQUEST_OPTION = "request_option";
     const REQUEST_OPTION_HTML = "request_option_html";
+    const PRODUCT = "product";
+    const APPLY_RULE_IDS = "apply_rule_ids";
 
     /**
      * @param integer $value
@@ -59,6 +62,17 @@ interface CartItemInterface extends BaseAttributesInterface{
      * @return string
      */
     public function getImagePath();
+
+        /**
+     * @param integer $value
+     * @return $this
+     */
+    public function setQuoteId($value);
+    
+    /**
+     * @return integer
+     */
+    public function getQuoteId();
 
     /**
      * @param integer $value
@@ -136,8 +150,18 @@ interface CartItemInterface extends BaseAttributesInterface{
      * @return Tha\Devob\Api\Data\BaseAttributesInterface[]
      */
     public function getRequestOptionHtml();
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setApplyRuleIds($value);
     
-    
+    /**
+     * @return string
+     */
+    public function getApplyRuleIds();
+
 
 }
 ?>
