@@ -50,6 +50,25 @@ interface CartInterface{
      */
     public function emptyCart();
 
+    /**
+     * remove cart item
+     * method: DELETE
+     * url: {{url}}/{{res}}/V1/cart/removeItem/[item_id]?_tha_sid={{_tha_sid}}
+     * ex: http://zxc.com/magento2git/rest/V1/cart/removeItem/2
+     * @return Tha\Devob\Api\Data\Cart\CartDetailInterface
+     */
+    public function removeItem($item_id);
+
+    // updateItem
+    /**
+     * update cart item(attribute, qty)
+     * method: PUT
+     * url: {{url}}/{{res}}/V1/cart/updateItem/?_tha_sid={{_tha_sid}}
+     * ex: http://zxc.com/magento2git/rest/V1/cart/updateItem/
+     * @return Tha\Devob\Api\Data\Cart\CartDetailInterface
+     */
+    public function updateItem();
+
 }
 
 ?>

@@ -1,6 +1,8 @@
 <?php
+
 namespace Tha\Devob\Model\Api\Cart;
 
+use Exception;
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Checkout\Model\Session;
 use Magento\Framework\App\Request\Http;
@@ -11,7 +13,8 @@ use Magento\Checkout\Model\Cart as CustomerCart;
 use Magento\Checkout\Model\Cart\RequestQuantityProcessor;
 use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
 
-class CartModel{
+class CartModel
+{
     protected $quoteRepository;
     protected $cartHelper;
     protected $_checkoutSession;
@@ -32,8 +35,7 @@ class CartModel{
         CustomerCart $cart,
         EventManagerInterface $_eventManager,
         RequestQuantityProcessor $quantityProcessor
-    )
-    {
+    ) {
         $this->quoteRepository = $quoteRepository;
         $this->_checkoutSession = $checkoutSession;
         $this->cartHelper = $cartHelper;
@@ -54,7 +56,7 @@ class CartModel{
     public function getCartData()
     {
         $quote = $this->_checkoutSession->getQuote();
-        if ($id = $quote->getId()){
+        if ($id = $quote->getId()) {
             $quote = $this->quoteRepository->get($id);
         }
         return $this->cartHelper->formatCartData($quote);
@@ -81,8 +83,6 @@ class CartModel{
                 'checkout_cart_add_product_complete',
                 ['product' => $product, 'request' => $this->request]
             );
-
-
         } catch (\Magento\Framework\Exception\LocalizedException $e) {
             // if ($this->_checkoutSession->getUseNotice(true)) {
             //     $this->messageManager->addNoticeMessage(
@@ -119,7 +119,7 @@ class CartModel{
     public function updateQty()
     {
         $params = $this->request->getParams();
-        if (isset($params["item_id"]) && isset($params["qty"]) ) {
+        if (isset($params["item_id"]) && isset($params["qty"])) {
             $format_param = array((int) $params["item_id"] => array("qty" => $params["qty"]));
             if (!$this->cart->getCustomerSession()->getCustomerId() && $this->cart->getQuote()->getCustomerId()) {
                 $this->cart->getQuote()->setCustomerId(null);
@@ -128,8 +128,7 @@ class CartModel{
             $cartData = $this->cart->suggestItemsQty($cartData);
             $this->cart->updateItems($cartData)->save();
             return $this->getCartData();
-
-        }else {
+        } else {
             \Magento\Framework\Exception\InputException::requiredField("item_id & qty");
         }
     }
@@ -143,6 +142,82 @@ class CartModel{
         } catch (\Exception $exception) {
             \Magento\Framework\Exception\InputException::requiredField("We can\'t update the shopping cart.");
         }
+        return $this->getCartData();
+    }
+
+    public function removeItem($item_id)
+    {
+        $id = (int)$this->request->getParam('id');
+        if ((int)$id) {
+            try {
+                $this->cart->removeItem($id);
+                // We should set Totals to be recollected once more because of Cart model as usually is loading
+                // before action executing and in case when triggerRecollect setted as true recollecting will
+                // executed and the flag will be true already.
+                $this->cart->getQuote()->setTotalsCollectedFlag(false);
+                $this->cart->save();
+                return $this->getCartData();
+            } catch (\Exception $e) {
+                // $this->messageManager->addErrorMessage(__('We can\'t remove the item.'));
+                \Magento\Framework\Exception\InputException::requiredField(__('We can\'t remove the item.'));
+                $this->_objectManager->get(\Psr\Log\LoggerInterface::class)->critical($e);
+            }
+        } else {
+            \Magento\Framework\Exception\InputException::requiredField(__('error: check input params'));
+        }
+    }
+
+    public function updateItem()
+    {
+        $id = (int)$this->request->getParam('id');
+        $params = $this->request->getParams();
+        if (!isset($params['options'])) {
+            $params['options'] = [];
+        }
+        try {
+            if (isset($params['qty'])) {
+                $filter = new \Zend_Filter_LocalizedToNormalized(
+                    ['locale' => $this->_objectManager->get(
+                        \Magento\Framework\Locale\ResolverInterface::class
+                    )->getLocale()]
+                );
+                $params['qty'] = $filter->filter($params['qty']);
+            }
+            $quoteItem = $this->cart->getQuote()->getItemById($id);
+            if (!$quoteItem) {
+                throw new \Magento\Framework\Exception\LocalizedException(
+                    __("The quote item isn't found. Verify the item and try again.")
+                );
+            }
+            $item = $this->cart->updateItem($id, new \Magento\Framework\DataObject($params));
+            if (is_string($item)) {
+                throw new \Magento\Framework\Exception\LocalizedException(__($item));
+            }
+            if ($item->getHasError()) {
+                throw new \Magento\Framework\Exception\LocalizedException(__($item->getMessage()));
+            }
+
+            $related = $this->getRequest()->getParam('related_product');
+            if (!empty($related)) {
+                $this->cart->addProductsByIds(explode(',', $related));
+            }
+
+            $this->cart->save();
+        } catch (\Magento\Framework\Exception\LocalizedException $e) {
+            if ($this->_checkoutSession->getUseNotice(true)) {
+                throw new \Magento\Framework\Exception\LocalizedException(__($e->getMessage()));
+            } else {
+                $messages = array_unique(explode("\n", $e->getMessage()));
+                foreach ($messages as $message) {
+                    throw new \Magento\Framework\Exception\LocalizedException(__($message));
+                }
+            }
+        } catch (\Exception $e) {
+            throw new Exception(__('We can\'t update the item right now.'));
+        } catch (\Throwable $th) {
+            //throw $catth;
+        }
+
         return $this->getCartData();
     }
 
@@ -167,5 +242,3 @@ class CartModel{
         return false;
     }
 }
-
-?>

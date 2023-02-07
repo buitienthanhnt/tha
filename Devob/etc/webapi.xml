@@ -148,6 +148,20 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+
+    <route method="DELETE" url="/V1/cart/removeItem/:item_id">
+        <service class="Tha\Devob\Api\CartInterface" method="removeItem" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route method="PUT" url="/V1/cart/updateItem">
+        <service class="Tha\Devob\Api\CartInterface" method="updateItem" />
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
     <!--======================cart api======================-->
 
 

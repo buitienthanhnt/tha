@@ -43,4 +43,14 @@ class Cart implements CartInterface
     {
         return $this->cartModel->emptyCart();
     }
+
+    public function removeItem($item_id)
+    {
+        return $this->cartModel->removeItem($item_id);
+    }
+
+    public function updateItem()
+    {
+        return $this->cartModel->updateItem();
+    }
 }
