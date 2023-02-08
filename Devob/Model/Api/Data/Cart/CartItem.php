@@ -135,4 +135,14 @@ class CartItem extends MidAttribute implements CartItemInterface
     {
         return $this->getData(self::APPLY_RULE_IDS);
     }
+
+    public function setItemOptions($value)
+    {
+        return $this->setData(self::ITEM_OPTIONS, $value);
+    }
+
+    public function getItemOptions()
+    {
+        return $this->getData(self::ITEM_OPTIONS);
+    }
 }

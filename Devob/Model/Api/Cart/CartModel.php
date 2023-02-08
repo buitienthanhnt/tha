@@ -147,7 +147,7 @@ class CartModel
 
     public function removeItem($item_id)
     {
-        $id = (int)$this->request->getParam('id');
+        $id = (int) $item_id;
         if ((int)$id) {
             try {
                 $this->cart->removeItem($id);
@@ -169,6 +169,12 @@ class CartModel
 
     public function updateItem()
     {
+        // product: 174
+        // id: 53
+        // super_attribute[144]: 169
+        // super_attribute[93]: 58
+        // qty: 1
+        
         $id = (int)$this->request->getParam('id');
         $params = $this->request->getParams();
         if (!isset($params['options'])) {
@@ -197,7 +203,7 @@ class CartModel
                 throw new \Magento\Framework\Exception\LocalizedException(__($item->getMessage()));
             }
 
-            $related = $this->getRequest()->getParam('related_product');
+            $related = $this->request->getParam('related_product');
             if (!empty($related)) {
                 $this->cart->addProductsByIds(explode(',', $related));
             }

@@ -13,15 +13,18 @@ class CartHelper extends AbstractHelper
     protected $cartDetailFactory;
     protected $cartItemFactory;
     protected $baseAttributesFactory;
+    protected $dataAttributesInterfaceFactory;
     public function __construct(
         CartDetailFactory $cartDetailFactory,
         CartItemFactory $cartItemFactory,
-        BaseAttributesFactory $baseAttributesFactory
+        BaseAttributesFactory $baseAttributesFactory,
+        \Tha\Devob\Api\Data\DataAttributesInterfaceFactory $dataAttributesInterfaceFactory
     )
     {
         $this->cartDetailFactory = $cartDetailFactory;
         $this->cartItemFactory = $cartItemFactory;
         $this->baseAttributesFactory = $baseAttributesFactory;
+        $this->dataAttributesInterfaceFactory = $dataAttributesInterfaceFactory;
     }
 
     public function formatCartData($quote = null)
@@ -67,19 +70,37 @@ class CartHelper extends AbstractHelper
         $cartItem->setType($item->getProductType());
         $cartItem->setPrices($this->formatQuoteItemPrice($item));
         $cartItem->setApplyRuleIds($item->getAppliedRuleIds()); //applied_rule_ids
+        $cartItem->setItemOptions($item->getOptions());
         return $cartItem;
+    }
+
+    public function getItemOptions($item)
+    {
+        $_item_options = null;
+        $item_options = $item->getOptions();
+        if (count($item_options)) {
+            foreach ($item_options as $option) {
+                $_item_options[] = $this->getDataAttributeData($option->getOptionId(), $option->getCode(), $option->getValue());
+            }
+        }
+        return $_item_options;
+        // option_id:"130"
+        // item_id:"59"
+        // product_id:"1178"
+        // code:"info_buyRequest"
+        // value:"{"qty":"1","_tha_sid":"m8jit1kjmjpbvoal0d477kg3m5","product":"1178","super_attribute":{"144":"166","93":"50"}}"
     }
 
     public function formatQuoteItemPrice($item)
     {
         $prices = null;
         $prices[] = $this->getBaseAttributeData(...["price", $item->getData("price")]);
-        $prices[] = $this->getBaseAttributeData(...["price_incl_tax", $item->getData("price_incl_tax")]);
-        $prices[] = $this->getBaseAttributeData(...["discount_tax_compensation_amount", $item->getData("discount_tax_compensation_amount")]);
         $prices[] = $this->getBaseAttributeData(...["tax_amount", $item->getData("tax_amount")]);
         $prices[] = $this->getBaseAttributeData(...["tax_percent", $item->getData("tax_percent")]);
+        $prices[] = $this->getBaseAttributeData(...["price_incl_tax", $item->getData("price_incl_tax")]);
         $prices[] = $this->getBaseAttributeData(...["discount_amount", $item->getData("discount_amount")]);
         $prices[] = $this->getBaseAttributeData(...["discount_percent", $item->getData("discount_percent")]);
+        $prices[] = $this->getBaseAttributeData(...["discount_tax_compensation_amount", $item->getData("discount_tax_compensation_amount")]);
         return $prices;
     }
 
@@ -87,9 +108,9 @@ class CartHelper extends AbstractHelper
     {
         $prices = null;
         $prices[] = $this->getBaseAttributeData(...["subtotal", $quote->getData("subtotal")]);
-        $prices[] = $this->getBaseAttributeData(...["subtotal_with_discount", $quote->getData("subtotal_with_discount")]);
         $prices[] = $this->getBaseAttributeData(...["grand_total", $quote->getData("grand_total")]);
         $prices[] = $this->getBaseAttributeData(...["shipping_amount", $quote->getData("shipping_amount")]);
+        $prices[] = $this->getBaseAttributeData(...["subtotal_with_discount", $quote->getData("subtotal_with_discount")]);
         return $prices;
     }
 
@@ -98,6 +119,13 @@ class CartHelper extends AbstractHelper
         $baseAttributes = $this->baseAttributesFactory->create();
         $baseAttributes->setData(['key' => $key, "value" => $value, "type" => $type]);
         return $baseAttributes;
+    }
+
+    public function getDataAttributeData($id = null, $code= "", $value = null, $type="")
+    {
+        $dataAttributesInterface = $this->dataAttributesInterfaceFactory->create();
+        $dataAttributesInterface->setData(['id' => $id, 'code' => $code, "value" => $value, "type" => $type]);
+        return $dataAttributesInterface;
     }
 }
 

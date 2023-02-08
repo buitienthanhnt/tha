@@ -28,6 +28,7 @@ interface CartInterface{
      * method: POST
      * url: {{url}}/{{res}}/V1/cart/addToCart?_tha_sid={{_tha_sid}}
      * ex: http://magento243x.com/rest/V1/cart/addToCart?product=8&qty=2&_tha_sid=9sfg17dtrrgrqbb3s31kup0gp4
+     * ex: http://magento243x.com/rest/V1/cart/addToCart?product=1178&super_attribute[144]=170&super_attribute[93]=60
      * @return Tha\Devob\Api\Data\Cart\CartDetailInterface
      */
     public function addToCart();
@@ -55,6 +56,7 @@ interface CartInterface{
      * method: DELETE
      * url: {{url}}/{{res}}/V1/cart/removeItem/[item_id]?_tha_sid={{_tha_sid}}
      * ex: http://zxc.com/magento2git/rest/V1/cart/removeItem/2
+     * @param int $item_id
      * @return Tha\Devob\Api\Data\Cart\CartDetailInterface
      */
     public function removeItem($item_id);
@@ -64,7 +66,7 @@ interface CartInterface{
      * update cart item(attribute, qty)
      * method: PUT
      * url: {{url}}/{{res}}/V1/cart/updateItem/?_tha_sid={{_tha_sid}}
-     * ex: http://zxc.com/magento2git/rest/V1/cart/updateItem/
+     * ex: http://magento243x.com/rest/V1/cart/updateItem?id=59&product=1178&super_attribute[144]=170&super_attribute[93]=60
      * @return Tha\Devob\Api\Data\Cart\CartDetailInterface
      */
     public function updateItem();

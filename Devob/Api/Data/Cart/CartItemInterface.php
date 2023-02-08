@@ -18,6 +18,7 @@ interface CartItemInterface extends MidAttributeInterface{
     const REQUEST_OPTION_HTML = "request_option_html";
     const PRODUCT = "product";
     const APPLY_RULE_IDS = "apply_rule_ids";
+    const ITEM_OPTIONS = "item_options";
 
     /**
      * @param integer $value
@@ -162,6 +163,16 @@ interface CartItemInterface extends MidAttributeInterface{
      */
     public function getApplyRuleIds();
 
+    /**
+     * @param Tha\Devob\Api\Data\DataAttributesInterface[] $value
+     * @return $this
+     */
+    public function setItemOptions($value);
+
+    /**
+     * @return Tha\Devob\Api\Data\DataAttributesInterface[]
+     */
+    public function getItemOptions();
 
 }
 ?>
