@@ -80,7 +80,7 @@ class CartHelper extends AbstractHelper
         $cartItem->setItemOptions($item->getOptions());
         $cartItem->setRequestOptionHtml($this->getItemBuyRequestHtml($item));
         $cartItem->setImagePath($this->productHelp->product_image_path($item->getProduct()));
-        
+
         return $cartItem;
     }
 
@@ -130,9 +130,9 @@ class CartHelper extends AbstractHelper
     {
         $prices = null;
         $prices[] = $this->getBaseAttributeData(...["subtotal", $quote->getData("subtotal")]);
-        $prices[] = $this->getBaseAttributeData(...["grand_total", $quote->getData("grand_total")]);
-        $prices[] = $this->getBaseAttributeData(...["shipping_amount", $quote->getData("shipping_amount")]);
         $prices[] = $this->getBaseAttributeData(...["subtotal_with_discount", $quote->getData("subtotal_with_discount")]);
+        $prices[] = $this->getBaseAttributeData(...["shipping_amount", $quote->getData("shipping_amount")]);
+        $prices[] = $this->getBaseAttributeData(...["grand_total", $quote->getData("grand_total")]);
         return $prices;
     }
 
