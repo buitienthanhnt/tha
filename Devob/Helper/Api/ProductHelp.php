@@ -135,7 +135,7 @@ class ProductHelp extends AbstractHelper
             $itemListFactory->setPrice($product->getPrice());
             $itemListFactory->setActive($product->getStatus() ? true : false);
             $itemListFactory->setSaleable($product->getIsSalable());
-            $itemListFactory->setImagePath($this->data_helper->api_url_replace($this->resize_image($product, $product->getThumbnail() ?: "")));
+            $itemListFactory->setImagePath($this->product_image_path($product));
             $this->rate_and_review($product);
             $itemListFactory->setRates($product->getRatingSummary()->getData("rating_summary"));
             $itemListFactory->setReviews($product->getRatingSummary()->getData("reviews_count"));
@@ -457,5 +457,10 @@ class ProductHelp extends AbstractHelper
             }
         }
         return $filterAttrs;
+    }
+
+    public function product_image_path($product)
+    {
+        return $this->data_helper->api_url_replace($this->resize_image($product, $product->getThumbnail() ?: ""));
     }
 }

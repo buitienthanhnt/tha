@@ -142,13 +142,13 @@ interface CartItemInterface extends MidAttributeInterface{
     public function getRequestOption();
 
     /**
-     * @param Tha\Devob\Api\Data\BaseAttributesInterface[] $value
+     * @param Tha\Devob\Api\Data\DataAttributesInterface[] $value
      * @return $this
      */
     public function setRequestOptionHtml($value);
 
     /**
-     * @return Tha\Devob\Api\Data\BaseAttributesInterface[]
+     * @return Tha\Devob\Api\Data\DataAttributesInterface[]
      */
     public function getRequestOptionHtml();
 

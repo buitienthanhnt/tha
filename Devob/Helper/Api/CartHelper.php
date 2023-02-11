@@ -13,18 +13,25 @@ class CartHelper extends AbstractHelper
     protected $cartDetailFactory;
     protected $cartItemFactory;
     protected $baseAttributesFactory;
-    protected $dataAttributesInterfaceFactory;
+    protected $dataAttributesFactory;
+    protected $configurable;
+    protected $productHelp;
+
     public function __construct(
         CartDetailFactory $cartDetailFactory,
         CartItemFactory $cartItemFactory,
         BaseAttributesFactory $baseAttributesFactory,
-        \Tha\Devob\Api\Data\DataAttributesInterfaceFactory $dataAttributesInterfaceFactory
+        \Tha\Devob\Model\Api\Data\DataAttributesFactory $dataAttributesFactory,
+        \Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable $configurable,
+        ProductHelp $productHelp
     )
     {
         $this->cartDetailFactory = $cartDetailFactory;
         $this->cartItemFactory = $cartItemFactory;
         $this->baseAttributesFactory = $baseAttributesFactory;
-        $this->dataAttributesInterfaceFactory = $dataAttributesInterfaceFactory;
+        $this->dataAttributesFactory = $dataAttributesFactory;
+        $this->configurable = $configurable;
+        $this->productHelp = $productHelp;
     }
 
     public function formatCartData($quote = null)
@@ -71,7 +78,22 @@ class CartHelper extends AbstractHelper
         $cartItem->setPrices($this->formatQuoteItemPrice($item));
         $cartItem->setApplyRuleIds($item->getAppliedRuleIds()); //applied_rule_ids
         $cartItem->setItemOptions($item->getOptions());
+        $cartItem->setRequestOptionHtml($this->getItemBuyRequestHtml($item));
+        $cartItem->setImagePath($this->productHelp->product_image_path($item->getProduct()));
+        
         return $cartItem;
+    }
+
+    public function getItemBuyRequestHtml($item)
+    {
+        $request_html = null;
+        $optionList = $this->configurable->setItem($item)->getOptionList();
+        if (count($optionList)) {
+            foreach ($optionList as $option) {
+                $request_html[] = $this->getDataAttributeData(...[$option["option_id"], null, $option["option_value"], $option["label"], $option["value"]]);
+            }
+        }
+        return $request_html;
     }
 
     public function getItemOptions($item)
@@ -121,10 +143,10 @@ class CartHelper extends AbstractHelper
         return $baseAttributes;
     }
 
-    public function getDataAttributeData($id = null, $code= "", $value = null, $type="")
+    public function getDataAttributeData($id = null, $code= "", $value = null, $type="", $label = "")
     {
-        $dataAttributesInterface = $this->dataAttributesInterfaceFactory->create();
-        $dataAttributesInterface->setData(['id' => $id, 'code' => $code, "value" => $value, "type" => $type]);
+        $dataAttributesInterface = $this->dataAttributesFactory->create();
+        $dataAttributesInterface->setData(['id' => $id, 'code' => $code, "value" => $value, "type" => $type, "label" => $label]);
         return $dataAttributesInterface;
     }
 }
