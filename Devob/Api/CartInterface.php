@@ -6,7 +6,7 @@ interface CartInterface{
     /**
      * get cart detail by cart_id
      * method: GET
-     * url: {{url}}/{{res}}/V1/cart/detail?_tha_sid={{_tha_sid}}
+     * url: {{url}}/{{res}}/V1/cart/detail/[cart_id]?_tha_sid={{_tha_sid}}
      * ex: http://zxc.com/magento2git/rest/V1/cart/detail/1 thông thường sẽ getCart bằng sesion.
      * @param int $cart_id
      * @return Tha\Devob\Api\Data\Cart\CartDetailInterface

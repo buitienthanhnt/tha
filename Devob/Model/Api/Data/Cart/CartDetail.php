@@ -157,7 +157,6 @@ class CartDetail extends BaseAttributes implements CartDetailInterface
         return $this->getData(self::PRICES);
     }
 
-
 }
 
 ?>

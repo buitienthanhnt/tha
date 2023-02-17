@@ -95,7 +95,7 @@
 
     <!--======================sid_token api======================-->
 
-    <route method="GET" url="/V1/guest/newsid">
+    <route method="GET" url="/V1/guest/newsid"> <!--{{url}}/{{res}}/{{v}}/guest/newsid-->
         <service class="Tha\Devob\Api\GuestInterface" method="getSidValue"/>
         <resources>
             <resource ref="anonymous"/>
@@ -114,55 +114,54 @@
     <!--======================wishlist api======================-->
 
     <!--======================cart api======================-->
-    <route method="GET" url="/V1/cart/detail/:cart_id">
+    <route method="GET" url="/V1/cart/detail/:cart_id"> <!--{{url}}/{{res}}/V1/cart/detail/[cart_id]?_tha_sid={{_tha_sid}}-->
         <service class="Tha\Devob\Api\CartInterface" method="getCartDetail" />
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
 
-    <route method="GET" url="/V1/cart/data">
+    <route method="GET" url="/V1/cart/data"><!--{{url}}/{{res}}/V1/cart/data?_tha_sid={{_tha_sid}}-->
         <service class="Tha\Devob\Api\CartInterface" method="getCartData" />
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
 
-    <route method="POST" url="/V1/cart/addToCart">
+    <route method="POST" url="/V1/cart/addToCart"> <!--{{url}}/{{res}}/V1/cart/addToCart?_tha_sid={{_tha_sid}}-->
         <service class="Tha\Devob\Api\CartInterface" method="addToCart" />
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
 
-    <route method="PUT" url="/V1/cart/updateQty">
+    <route method="PUT" url="/V1/cart/updateQty"> <!--{{url}}/{{res}}/V1/cart/updateQty?_tha_sid={{_tha_sid}}-->
         <service class="Tha\Devob\Api\CartInterface" method="updateQty" />
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
 
-    <route method="DELETE" url="/V1/cart/emptyCart">
+    <route method="DELETE" url="/V1/cart/emptyCart"> <!--{{url}}/{{res}}/V1/cart/emptyCart?_tha_sid={{_tha_sid}}-->
         <service class="Tha\Devob\Api\CartInterface" method="emptyCart" />
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
 
-    <route method="DELETE" url="/V1/cart/removeItem/:item_id">
+    <route method="DELETE" url="/V1/cart/removeItem/:item_id"> <!--{{url}}/{{res}}/V1/cart/removeItem/[item_id]?_tha_sid={{_tha_sid}}-->
         <service class="Tha\Devob\Api\CartInterface" method="removeItem" />
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
 
-    <route method="PUT" url="/V1/cart/updateItem">
+    <route method="PUT" url="/V1/cart/updateItem"> <!--{{url}}/{{res}}/V1/cart/updateItem/?_tha_sid={{_tha_sid}}-->
         <service class="Tha\Devob\Api\CartInterface" method="updateItem" />
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
     <!--======================cart api======================-->
-
 
 </routes>
