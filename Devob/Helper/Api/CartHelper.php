@@ -16,6 +16,7 @@ class CartHelper extends AbstractHelper
     protected $dataAttributesFactory;
     protected $configurable;
     protected $productHelp;
+    protected $bunderRender;
 
     public function __construct(
         CartDetailFactory $cartDetailFactory,
@@ -23,14 +24,15 @@ class CartHelper extends AbstractHelper
         BaseAttributesFactory $baseAttributesFactory,
         \Tha\Devob\Model\Api\Data\DataAttributesFactory $dataAttributesFactory,
         \Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable $configurable,
+        \Magento\Bundle\Block\Checkout\Cart\Item\Renderer $bunderRender,
         ProductHelp $productHelp
-    )
-    {
+    ) {
         $this->cartDetailFactory = $cartDetailFactory;
         $this->cartItemFactory = $cartItemFactory;
         $this->baseAttributesFactory = $baseAttributesFactory;
         $this->dataAttributesFactory = $dataAttributesFactory;
         $this->configurable = $configurable;
+        $this->bunderRender = $bunderRender;
         $this->productHelp = $productHelp;
     }
 
@@ -49,7 +51,8 @@ class CartHelper extends AbstractHelper
             $cart->setItems($this->getQuoteItems($quote));
             $cart->setCreatedAt($quote->getCreatedAt());
             $cart->setUpdatedAt($quote->getUpdatedAt());
-        }catch (NoSuchEntityException $exception){}
+        } catch (NoSuchEntityException $exception) {
+        }
         return $cart;
     }
 
@@ -87,10 +90,19 @@ class CartHelper extends AbstractHelper
     public function getItemBuyRequestHtml($item)
     {
         $request_html = null;
-        $optionList = $this->configurable->setItem($item)->getOptionList();
-        if (count($optionList)) {
-            foreach ($optionList as $option) {
-                $request_html[] = $this->getDataAttributeData(...[$option["option_id"], null, $option["option_value"], $option["label"], $option["value"]]);
+        if ($item->getProduct()->getTypeId() == "bundle") {
+            $optionList = $this->bunderRender->setItem($item)->getOptionList();
+            if (count($optionList)) {
+                foreach ($optionList as $option) {
+                    $request_html[] = $this->getDataAttributeData(...[$option["option_id"] ?? null, null, $option["option_value"] ?? null, $option["label"], $option["value"][0]]);
+                }
+            }
+        } elseif ($item->getProduct()->getTypeId() == "configurable") {
+            $optionList = $this->configurable->setItem($item)->getOptionList();
+            if (count($optionList)) {
+                foreach ($optionList as $option) {
+                    $request_html[] = $this->getDataAttributeData(...[$option["option_id"], null, $option["option_value"], $option["label"], $option["value"]]);
+                }
             }
         }
         return $request_html;
@@ -136,19 +148,17 @@ class CartHelper extends AbstractHelper
         return $prices;
     }
 
-    public function getBaseAttributeData($key= "", $value = null, $type="")
+    public function getBaseAttributeData($key = "", $value = null, $type = "")
     {
         $baseAttributes = $this->baseAttributesFactory->create();
         $baseAttributes->setData(['key' => $key, "value" => $value, "type" => $type]);
         return $baseAttributes;
     }
 
-    public function getDataAttributeData($id = null, $code= "", $value = null, $type="", $label = "")
+    public function getDataAttributeData($id = null, $code = "", $value = null, $type = "", $label = "")
     {
         $dataAttributesInterface = $this->dataAttributesFactory->create();
         $dataAttributesInterface->setData(['id' => $id, 'code' => $code, "value" => $value, "type" => $type, "label" => $label]);
         return $dataAttributesInterface;
     }
 }
-
-?>
