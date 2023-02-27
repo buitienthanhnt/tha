@@ -1,4 +1,4 @@
-define(['jquery', 'uiComponent', 'ko', 'mage/url'], function ($, Component, ko, urlBuilder) {
+define(['jquery', 'uiComponent', 'ko', 'mage/url', 'mage/loader'], function ($, Component, ko, urlBuilder, loader) {
     'use strict';
     return Component.extend({
         defaults: {
@@ -17,7 +17,7 @@ define(['jquery', 'uiComponent', 'ko', 'mage/url'], function ($, Component, ko, 
             this.page_size_arr = [2, 4, 5, 8, 10, 25];
             this.text_data = ko.observable("text data");
             this.message_type = ko.observable("black");
-            
+
             this.form_data = ko.observable({
                 created_at: "",
                 entity_id: "",
@@ -32,15 +32,15 @@ define(['jquery', 'uiComponent', 'ko', 'mage/url'], function ($, Component, ko, 
 
             this.page_arr = ko.observable(this.items().length);
             this.page_number = ko.observable(Math.floor(this.items().length/2));
-           
+
             this.all_inde = ko.computed(function () {
                 var indexes = [], i;
                 for(i = 0; i < Math.ceil(this.items().length/(this.page_size() ?? 2)); i++){
                     indexes.push(i + 1);
-                }   
+                }
                 return indexes;
             }.bind(this));
-    
+
             this.current_item = ko.computed(function(){
                 if (this.current_page != 'defined') {
                     let curen = this.items().slice((this.current_page()-1)*(this.page_size() ?? 2), (this.current_page()-1)*(this.page_size() ?? 2) + (this.page_size() ?? 2));
@@ -100,6 +100,8 @@ define(['jquery', 'uiComponent', 'ko', 'mage/url'], function ($, Component, ko, 
             let local_area = $("#local_area").val();
 
             if (be_text && af_text && local_area) {
+                let custom_component = $("#custom-component");
+                jQuery('body').loader('show'); // start loading screen.
                 $.ajax({
                     url: urlBuilder.build("thatran/index/transpost?isAjax=true"),
                     data: {
@@ -129,8 +131,10 @@ define(['jquery', 'uiComponent', 'ko', 'mage/url'], function ($, Component, ko, 
                         //     trans_value: ""
                         // });
                         this.items.push(JSON.parse(data));
+                        jQuery('body').loader('hide');
                     }.bind(this),
                     error: function(xhr, status, errorThrown) {
+                        jQuery('body').loader('hide');
                         console.log(errorThrown);
                         this.showMessage("Can not add the data!", "red");
                     }.bind(this)
