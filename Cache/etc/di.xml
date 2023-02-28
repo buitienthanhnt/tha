@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+<!-- <type name="Magento\Framework\App\Cache\Type\FrontendPool">
+        <arguments>
+            <argument name="typeFrontendMap" xsi:type="array">
+                <item name="tha_cache" xsi:type="string">tha cache</item>
+            </argument>
+        </arguments>
+    </type> -->
+
+</config>
