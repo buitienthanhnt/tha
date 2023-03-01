@@ -2,7 +2,7 @@
 
 namespace Tha\Devob\Api\Data\Category;
 
-interface CategoryDetailInterface{
+interface CategoryDetailInterface extends \Magento\Framework\Api\ExtensibleDataInterface{
     const NAME = "name";
     const CATEGORY_ID = "category_id";
     const PARENT_ID = "parent_id";

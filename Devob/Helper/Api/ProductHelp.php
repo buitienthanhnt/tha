@@ -191,6 +191,9 @@ class ProductHelp extends AbstractHelper
             if ($product_data->getTypeId() == "bundle") {
                 $detailData->setBundData($this->get_bunder_options($product_data));
             }
+
+            $extension_attribute = $detailData->getExtensionAttributes();
+            $detailData->setExtensionAttributes($extension_attribute->setExData("tha helpet")->setMoreData("kjahsd")->setCacheKey("111111"));
         }
         $productDetail = $this->productDetailFactory->create()->setDetailData($detailData);
         if (\Tha\Devob\Helper\Api\Data::CACHE_ENA) {

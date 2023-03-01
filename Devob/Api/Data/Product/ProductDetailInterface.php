@@ -2,7 +2,7 @@
 
 namespace Tha\Devob\Api\Data\Product;
 
-interface ProductDetailInterface{
+interface ProductDetailInterface extends \Magento\Framework\Api\ExtensibleDataInterface{
    const DETAIL_DATA = "detail_data";
 
    /**

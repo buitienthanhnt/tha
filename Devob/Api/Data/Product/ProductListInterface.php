@@ -1,7 +1,7 @@
 <?php
 namespace Tha\Devob\Api\Data\Product;
 
-interface ProductListInterface{
+interface ProductListInterface extends \Magento\Framework\Api\ExtensibleDataInterface{
     const COUNT = "count";
     const ITEMS = "items";
     const FILTERS = "filters";

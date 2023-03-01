@@ -1,7 +1,7 @@
 <?php
 namespace Tha\Devob\Api\Data\Product;
 
-interface FiltersInterface{
+interface FiltersInterface extends \Magento\Framework\Api\ExtensibleDataInterface{
     const CODE = "code";
     const LABEL = "label";
     const VALUE = " value";

@@ -147,6 +147,17 @@ interface DetailDataInterface extends ItemListInterface{
     * @return \Tha\Devob\Api\Data\Product\ItemListInterface[]|null
     */
    public function getGroupData();
+
+   /**
+    * @param \Tha\Devob\Api\Data\Product\DetailDataExtensionInterface $value
+    * @return $this
+    */
+   public function setExtensionAttributes(\Tha\Devob\Api\Data\Product\DetailDataExtensionInterface $value);
+
+   /**
+    * @return \Tha\Devob\Api\Data\Product\DetailDataExtensionInterface
+    */
+    public function getExtensionAttributes();
 }
 
 ?>

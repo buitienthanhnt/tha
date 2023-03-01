@@ -2,7 +2,7 @@
 
 namespace Tha\Devob\Api\Data\Product;
 
-interface ItemListInterface{
+interface ItemListInterface extends \Magento\Framework\Api\ExtensibleDataInterface{
     const E_ID = "e_id";
     const NAME = "name";
     const SKU = "sku";

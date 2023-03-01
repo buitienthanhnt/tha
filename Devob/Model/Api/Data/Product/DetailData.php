@@ -2,6 +2,7 @@
 
 namespace Tha\Devob\Model\Api\Data\Product;
 
+use Tha\Devob\Api\Data\Product\DetailDataExtensionInterface;
 use Tha\Devob\Api\Data\Product\DetailDataInterface;
 use Tha\Devob\Model\Api\Data\Product\ItemList;
 
@@ -125,6 +126,16 @@ class DetailData extends ItemList implements DetailDataInterface
     function getGroupData()
     {
         return $this->getData(self::GROUP_DATA);
+    }
+
+    function setExtensionAttributes(\Tha\Devob\Api\Data\Product\DetailDataExtensionInterface $value)
+    {
+        return $this->_setExtensionAttributes($value);
+    }
+
+    function getExtensionAttributes()
+    {
+        return $this->_getExtensionAttributes();
     }
 
 }

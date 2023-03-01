@@ -1,7 +1,7 @@
 <?php
 namespace Tha\Devob\Api\Data;
 
-interface BaseAttributesInterface{
+interface BaseAttributesInterface extends \Magento\Framework\Api\ExtensibleDataInterface{
     const KEY = "key";
     const VALUE = "value";
     const TYPE = "type";

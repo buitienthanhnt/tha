@@ -2,7 +2,7 @@
 
 namespace Tha\Devob\Api\Data\Customer;
 
-interface CustomerResultInterface{
+interface CustomerResultInterface extends \Magento\Framework\Api\ExtensibleDataInterface{
     const CUSTOMER_ID = "customer_id";
     const NAME = "name";
     const FIRST_NAME = "first_name";

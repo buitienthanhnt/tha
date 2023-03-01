@@ -2,7 +2,7 @@
 
 namespace Tha\Devob\Api\Data\Customer;
 
-interface CustomerDataInterface{
+interface CustomerDataInterface extends \Magento\Framework\Api\ExtensibleDataInterface{
     const RESULT = "result";
     const CODE = "code";
     const MESSAGE = "message";

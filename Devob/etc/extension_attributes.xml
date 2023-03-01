@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    
+    <extension_attributes for="Tha\Devob\Api\Data\Product\DetailDataInterface">
+        <attribute code="ex_data" type="string"/>
+        <attribute code="more_data" type="string"/>
+        <attribute code="cache_key" type="string"/>
+    </extension_attributes>
+    
+</config>
