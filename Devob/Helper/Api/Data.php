@@ -6,6 +6,7 @@ use Magento\Framework\App\Helper\AbstractHelper;
 class Data extends AbstractHelper
 {
     const IP_JM = "192.168.100.138";
+//    const IP_MO = "192.168.1.214";          // 192.168.1.216(m6800) 192.168.1.153(m4700)
 //    const IP_MO = "192.168.1.215";          // 192.168.1.216(m6800) 192.168.1.153(m4700)
     const IP_MO = "192.168.1.153";          // 192.168.1.216(m6800) 192.168.1.153(m4700)
 //    const IP_MO = "192.168.99.104";           // home
