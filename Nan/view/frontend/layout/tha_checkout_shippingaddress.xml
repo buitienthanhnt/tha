@@ -8,8 +8,9 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
+            <block class="Tha\Nan\Block\Onepage" name="tha_css_custom" template="Tha_Nan::css.phtml" before="-"></block>
             <block class="Tha\Nan\Block\Onepage" name="tha_js_config" template="Tha_Nan::jsconfig.phtml"></block>
-            <block class="Tha\Nan\Block\Onepage" name="checkout.root" template="Tha_Nan::newonepage.phtml" cacheable="false">
+            <block class="Tha\Nan\Block\Onepage" name="checkout.root" template="Tha_Nan::checkout_address.phtml" cacheable="false">
                 <arguments>
                     <argument name="jsLayout" xsi:type="array">
                         <item name="types" xsi:type="array">
@@ -528,5 +529,6 @@
             </block>
         </referenceContainer>
         <referenceContainer name="page.messages" remove="true"/>
+        <referenceBlock name="page.main.title" remove="true"/>
     </body>
 </page>
