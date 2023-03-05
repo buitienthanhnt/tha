@@ -46,6 +46,13 @@
     </form>
 </div>
 
+<div class="note">
+    <a href="#" class="action cvv" title="<?= $block->escapeHtml(__('What is this?')) ?>"
+       data-mage-init='{"tooltip": {"content": "<?="ppppppp tooltip" ?>"}}'>
+        <span><?= $block->escapeHtml(__('What is this?')) ?></span>
+    </a>
+</div>
+
 <script type="text/x-magento-init">
     {
         "[data-role=priceBox][data-price-box=product-id-<?= $block->escapeHtml($_product->getId()) ?>]": {
@@ -59,7 +66,8 @@
     require([
         'jquery',
         'mage/translate',
-        'mage/calendar'
+        'mage/calendar',
+        'mage/popupWindow'
     ], function ($, $t) {
         $('#example-date').calendar({
             changeMonth: true,
@@ -69,6 +77,8 @@
             closeText: $t('Close'),
             showWeek: true
         });
+
+        $('#popupdemo').popupWindow();
     })
 </script>
 <!-- <div class="field">
