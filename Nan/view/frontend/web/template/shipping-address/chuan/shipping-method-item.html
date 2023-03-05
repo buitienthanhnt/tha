@@ -16,7 +16,6 @@
                     'checked': element.rates().length == 1 || element.isSelected" />
     </td>
     <td class="col col-price">
-        <span data-bind="text: element.getFormattedPrice(method.price_excl_tax)"></span>
         <each args="element.getRegion('price')" render="" />
     </td>
     <td class="col col-method"

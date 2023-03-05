@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Tha\Nan\Block;
 
 
@@ -98,51 +100,62 @@ class Onepage extends \Magento\Framework\View\Element\Template
             $this->jsLayout = $processor->process($this->jsLayout);
         }
         $jsLayout = $this->jsLayout;
-        $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']["children"]["payment"] = $jsLayout['components']['checkout']['children']['steps']['children']['billing-step']["children"]["payment"];
-        unset($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']["children"]["payment"]["component"]);
-        // unset($jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["shipping"]);
-        
-        // $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["before_grandtotal"] = [
-        //     "component"=> "Magento_Tax/js/view/checkout/summary/tax",
-        //     "sortOrder"=>30,
-        //     "children"=> []
-        // ]; 
-        $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["tax"] = [
-            "component"=> "uiComponent",
-            "sortOrder"=>40,
-            "config"=>["title"=> "FPT"]
-        ]; 
-        $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["weee"] = [
-            "component"=> "Magento_Weee/js/view/checkout/summary/weee",
-            "sortOrder"=>35,
-            "config"=>["title"=> "tax"]
-        ];
 
-        $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["discount"] = [
-            "component"=> "Magento_SalesRule/js/view/summary/discount",
-            "sortOrder"=>35,
-            "config"=>["title"=> "Discount"]
-        ]; //
+        // progressBar
+        if (isset($jsLayout['components']['checkout']['children']["progressBar"])) {
+            unset($jsLayout['components']['checkout']['children']["progressBar"]);
+        }
+        // authentication
+        if (isset($jsLayout['components']['checkout']['children']["authentication"])) {
+            unset($jsLayout['components']['checkout']['children']["authentication"]);
+        }
 
-        $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["vertex-messages"] = [
-            "component"=> "Vertex_Tax/js/view/checkout/summary/tax-messages",
-            "config"=>["title"=> "Vertex Messages", "template"=> "Vertex_Tax/checkout/cart/totals/tax-messages"]
-        ];
+        // store-pickup
+        if (isset($jsLayout['components']['checkout']['children']["steps"]["children"]["store-pickup"])) {
+            unset($jsLayout['components']['checkout']['children']["steps"]["children"]["store-pickup"]);
+        }
 
-        $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["cart_items"]["children"]["details"]["children"]["subtotal"]["children"] = [
-            "weee_row_incl_tax" => [
-                "component"=> "Magento_Weee/js/view/checkout/summary/item/price/row_incl_tax",
-                "displayArea"=> "row_incl_tax"
-            ],
-            "weee_row_excl_tax" => [
-                "component"=> "Magento_Weee/js/view/checkout/summary/item/price/row_excl_tax",
-                "displayArea"=> "row_excl_tax"
-            ]
-        ];
-        $module_manager = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Framework\Module\Manager::class);
+        if (strpos($this->templateContext->_request->getRequestUri(), "shippingaddress") == false || strpos($this->templateContext->_request->getRequestUri(), "chuan")  == false) {
+            $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']["children"]["payment"] = $jsLayout['components']['checkout']['children']['steps']['children']['billing-step']["children"]["payment"];
+            unset($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']["children"]["payment"]["component"]);
 
-        if ($module_manager) {
-            # code...
+            $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["tax"] = [
+                "component" => "uiComponent",
+                "sortOrder" => 40,
+                "config" => ["title" => "FPT"]
+            ];
+            $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["weee"] = [
+                "component" => "Magento_Weee/js/view/checkout/summary/weee",
+                "sortOrder" => 35,
+                "config" => ["title" => "tax"]
+            ];
+
+            $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["discount"] = [
+                "component" => "Magento_SalesRule/js/view/summary/discount",
+                "sortOrder" => 35,
+                "config" => ["title" => "Discount"]
+            ]; //
+
+            $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["vertex-messages"] = [
+                "component" => "Vertex_Tax/js/view/checkout/summary/tax-messages",
+                "config" => ["title" => "Vertex Messages", "template" => "Vertex_Tax/checkout/cart/totals/tax-messages"]
+            ];
+
+            $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["cart_items"]["children"]["details"]["children"]["subtotal"]["children"] = [
+                "weee_row_incl_tax" => [
+                    "component" => "Magento_Weee/js/view/checkout/summary/item/price/row_incl_tax",
+                    "displayArea" => "row_incl_tax"
+                ],
+                "weee_row_excl_tax" => [
+                    "component" => "Magento_Weee/js/view/checkout/summary/item/price/row_excl_tax",
+                    "displayArea" => "row_excl_tax"
+                ]
+            ];
+        }
+
+        if (strpos($this->templateContext->_request->getRequestUri(), "shippingaddress") !== false) {
+            unset($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']);
+            unset($jsLayout['components']['checkout']["children"]['sidebar']);
         }
         $this->jsLayout = $jsLayout;
         return $this->serializer->serialize($this->jsLayout);
@@ -211,5 +224,10 @@ class Onepage extends \Magento\Framework\View\Element\Template
     public function isModuleEnabled($module_name)
     {
         return false;
+    }
+
+    public function get_request_uri()
+    {
+        return $this->templateContext->_request->getRequestUri();
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="checkout_index_index"/>
+    <referenceContainer name="content">
+        <referenceBlock name="checkout.root" class="Tha\Nan\Block\Onepage">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Tha_Nan::newonepage.phtml</argument>
+            </action>
+        </referenceBlock>
+        <block class="Tha\Nan\Block\Onepage" name="tha_js_config" template="Tha_Nan::jsconfig.phtml"></block>
+    </referenceContainer>
+
+    <referenceBlock name="page.main.title" remove="true"/>
+</layout>

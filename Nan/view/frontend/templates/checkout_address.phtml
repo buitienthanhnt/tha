@@ -26,30 +26,6 @@
         }
     </script>
 
-    <script>
-        require([
-            'mage/url',
-            'Magento_Ui/js/block-loader',
-            'Magento_Checkout/js/model/payment-service',
-            'Magento_Checkout/js/model/payment/method-converter',
-            'Magento_Checkout/js/action/set-shipping-information',
-            'Magento_Checkout/js/model/quote',
-            'Magento_Checkout/js/model/address-converter',
-            'Magento_Checkout/js/checkout-data'
-        ], function(url, blockLoader, paymentService, methodConverter, setShippingInformationAction, quote, addressConverter, checkoutData) {
-
-            quote.shippingMethod(<?php echo($block->selected_shipping_method() != 'null' ? $block->selected_shipping_method() : json_encode(["method_code" => "tha_nan", "carrier_code" => "tha nan"])); ?>);
-
-            quote.shippingAddress(addressConverter.addressToEstimationAddress(window.checkoutConfig.shippingAddressFromData));
-            
-            setShippingInformationAction();
-            // checkoutData.subscribe(function (data) {
-            //     // self.createRendererComponent(address);
-            //     console.log(data);
-            // })
-        });
-    </script>
-
     <?php 
     $serializedCheckoutConfig = /* @noEscape */ $block->getSerializedCheckoutConfig();
     $scriptString = <<<script
