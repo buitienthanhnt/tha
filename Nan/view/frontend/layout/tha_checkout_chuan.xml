@@ -18,4 +18,5 @@
     </referenceContainer>
 
     <referenceBlock name="page.main.title" remove="true"/>
+
 </layout>

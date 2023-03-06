@@ -115,19 +115,20 @@ class Onepage extends \Magento\Framework\View\Element\Template
             unset($jsLayout['components']['checkout']['children']["steps"]["children"]["store-pickup"]);
         }
 
-        if (strpos($this->templateContext->_request->getRequestUri(), "shippingaddress") == false || strpos($this->templateContext->_request->getRequestUri(), "chuan")  == false) {
+        if (strpos($this->templateContext->_request->getRequestUri(), "shippingaddress") == false) {
             $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']["children"]["payment"] = $jsLayout['components']['checkout']['children']['steps']['children']['billing-step']["children"]["payment"];
             unset($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']["children"]["payment"]["component"]);
 
             $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["tax"] = [
-                "component" => "uiComponent",
-                "sortOrder" => 40,
-                "config" => ["title" => "FPT"]
+                "component" => "Magento_Tax/js/view/checkout/summary/tax",
+                "sortOrder" => 45,
+                "config" => ["title" => "Tax"]
             ];
+
             $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["weee"] = [
                 "component" => "Magento_Weee/js/view/checkout/summary/weee",
                 "sortOrder" => 35,
-                "config" => ["title" => "tax"]
+                "config" => ["title" => "FPT"]
             ];
 
             $jsLayout['components']['checkout']['children']['sidebar']['children']["summary"]["children"]["totals"]["children"]["discount"] = [
