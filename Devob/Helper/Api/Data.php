@@ -6,18 +6,18 @@ use Magento\Framework\App\Helper\AbstractHelper;
 class Data extends AbstractHelper
 {
     const IP_JM = "192.168.100.138";
-//    const IP_MO = "192.168.1.214";          // 192.168.1.216(m6800) 192.168.1.153(m4700)
-//    const IP_MO = "192.168.1.215";          // 192.168.1.216(m6800) 192.168.1.153(m4700)
+    //const IP_MO = "192.168.1.214";          // 192.168.1.216(m6800) 192.168.1.153(m4700)
+    //const IP_MO = "192.168.1.215";          // 192.168.1.216(m6800) 192.168.1.153(m4700)
     const IP_MO = "192.168.1.153";          // 192.168.1.216(m6800) 192.168.1.153(m4700)
-//    const IP_MO = "192.168.99.104";           // home
+    //const IP_MO = "192.168.99.104";           // home
     // const ADDRESS_243 = "magento243/pub";
     const ADDRESS_243 = "magento242/pub";
-    const ADDRESS_241 = "magento243x";   // m4700
-    // const ADDRESS_241 = "magento241x";   // m6800
-    // const ADDRESS_241 = "magento2git";   // jm360desktop
+    //const ADDRESS_241 = "magento243x";   // m4700
+    //const ADDRESS_241 = "magento241x";   // m6800
+    const ADDRESS_241 = "magento2git";   // jm360desktop
 
     const USE_CURRENT = true;
-    const CURRENT = "jmo";
+    const CURRENT = "jm";
     const CUR_DIR = "241";
 
     const CACHE_ENA = false;

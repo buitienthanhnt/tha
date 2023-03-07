@@ -5,10 +5,17 @@
  * See COPYING.txt for license details.
  */
 -->
-<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
     <update handle="checkout_index_index"/>
     <referenceContainer name="content">
+
+<!--        <container name="checkout.cart.noitems" as="no-items">-->
+<!--            <block class="Magento\Checkout\Block\Cart" name="checkout.cart.empty" before="-" template="Magento_Checkout::cart/noItems.phtml">-->
+<!--                <container name="checkout.cart.empty.widget" as="checkout_cart_empty_widget" label="Empty Shopping Cart Content Before"/>-->
+<!--            </block>-->
+<!--        </container>-->
+
         <referenceBlock name="checkout.root" class="Tha\Nan\Block\Onepage">
             <action method="setTemplate">
                 <argument name="template" xsi:type="string">Tha_Nan::newonepage.phtml</argument>
