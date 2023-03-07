@@ -3,7 +3,7 @@
 /**
  * Copyright © 2019 JMango360. All rights reserved.
  */
-$block;
+
 ?>
 <P style="display: none;">noi dung trong: tha_jsconfig</P>
 <script type="text/javascript">
@@ -11,22 +11,24 @@ $block;
         var config = {
             map: {
                 '*': {
-                    <?php if (strpos($block->get_request_uri(), "shippingaddress") === false) : ?> 'Magento_Checkout/template/payment': 'Tha_Nan/template/payment',
+                    <?php if (strpos($block->get_request_uri(), "shippingaddress") === false) : ?>
+                        'Magento_Checkout/template/payment': 'Tha_Nan/template/payment',
                         'Magento_Checkout/template/shipping': 'Tha_Nan/template/shipping',
                         'Magento_Checkout/template/summary/totals': 'Tha_Nan/template/summary/totals',
                         'Magento_Checkout/template/billing-address/details': 'Tha_Nan/template/billing-address/details',
                         'Magento_Checkout/template/payment/before-place-order': 'Tha_Nan/template/payment/before-place-order',
-                        <?php
-                        if (strpos($block->get_request_uri(), "chuan") === false) : ?> 'Magento_Checkout/template/shipping-address/shipping-method-item': 'Tha_Nan/template/shipping-address/shipping-method-item',
-                        <?php else : ?> 'Magento_Checkout/template/shipping-address/shipping-method-item': 'Tha_Nan/template/shipping-address/chuan/shipping-method-item',
+                        <?php if (strpos($block->get_request_uri(), "chuan") === false) : ?>
+                            'Magento_Checkout/template/shipping-address/shipping-method-item': 'Tha_Nan/template/shipping-address/shipping-method-item',
+                        <?php else : ?>
+                            'Magento_Checkout/template/shipping-address/shipping-method-item': 'Tha_Nan/template/shipping-address/chuan/shipping-method-item',
                         <?php endif; ?>
-
                         'Magento_Checkout/js/view/shipping': 'Tha_Nan/js/view/shipping',
                         'Magento_Checkout/js/view/payment/default': 'Tha_Nan/js/view/payment/default',
                         'Magento_Checkout/js/view/summary/shipping': 'Tha_Nan/js/view/summary/shipping',
                         'Magento_Checkout/js/view/shipping-information': 'Tha_Nan/js/view/shipping-information',
                         'Magento_Checkout/js/view/summary/abstract-total': 'Tha_Nan/js/view/summary/abstract-total'
-                    <?php else : ?> 'Magento_Checkout/template/shipping': 'Tha_Nan/template/address/shipping',
+                    <?php else : ?>
+                        'Magento_Checkout/template/shipping': 'Tha_Nan/template/address/shipping',
                         'Magento_Checkout/js/view/shipping': 'Tha_Nan/js/address/shipping',
                         'Magento_Checkout/js/model/shipping-save-processor/default': 'Tha_Nan/js/model/shipping-save-processor/default'
                     <?php endif; ?>
