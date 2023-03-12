@@ -155,6 +155,7 @@ class Onepage extends \Magento\Framework\View\Element\Template
         }
 
         if (strpos($this->templateContext->_request->getRequestUri(), "shippingaddress") !== false) {
+            $jsLayout["components"]["checkout"]["children"]['steps']['children']['shipping-step']["children"]["shippingAddress"]["children"]["billing-address-form"] = $jsLayout['components']['checkout']['children']['steps']['children']['billing-step']["children"]["payment"]["children"]["afterMethods"]["children"]["billing-address-form"];
             unset($jsLayout['components']['checkout']['children']['steps']['children']['billing-step']);
             unset($jsLayout['components']['checkout']["children"]['sidebar']);
         }

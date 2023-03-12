@@ -39,13 +39,15 @@ class index implements ActionInterface
         // return $result;
 
         // $result = $this->resultFactory->create(ResultFactory::TYPE_JSON);
+        $result = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         // $result->setData(["a" => 123, "status" => 1, "name" => "product name"]);
-        // return $result;
+        return $result;
         // $this->tha_logger->info('tha nan demo with log file');
         // $this->logHelper->log_write("tha log file demo examp");
         // $this->logHelper->log_txt();
-        $this->logHelper->log_custom_file();
-        die();
+        // $this->logHelper->log_custom_file();
+        // echo(123123);
+        // die();
     }
 
 }
