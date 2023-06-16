@@ -46,31 +46,6 @@ class DemoKnockout implements ActionInterface
 
     function base_upload_image()
     {
-
-
-// class ConNguoi
-// {
-//     private $name = "Vũ Thanh Tài";
-//     private $age = 20;
-
-//     public static function __set_state(array $arr)
-//     {
-//         foreach ($arr as $key => $value) {
-//             echo $key . '->' . $value . '<br/>';
-//         }
-//     }
-// }
-
-// $connguoi = new ConNguoi();
-// eval(var_export($connguoi, true) . ';');
-
-
-// $string = "beautiful";
-// $time = "winter";
-// $str = 'This is a $string $time morning!';
-// eval("\$str = \"$str\";");
-// var_export(123); == var_dum
-//echo(1682484766 - 1682484750);
         $entityBody = file_get_contents('php://input');
         $res = $_REQUEST;
         $image_path = $_FILES;
@@ -89,7 +64,7 @@ class DemoKnockout implements ActionInterface
             $uploadOk = 1;
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-// Check if image file is a actual image or fake image
+            // Check if image file is a actual image or fake image
 
             $check = getimagesize($_FILES["upload_file"]["tmp_name"]);
             if ($check !== false) {
